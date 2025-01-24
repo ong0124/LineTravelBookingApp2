@@ -113,6 +113,12 @@
     "insurance": "4. Tickets include passenger insurance coverage of up to 1.5 million TWD.",
     "invoice": "5. To request an invoice, please contact Ms. Lu in advance (Phone: 0910122683, WeChat: km0910122683). Invoices can be collected from the shuttle staff upon arrival in Kinmen."
   },
+    "errorPage": {
+      "notFound": "404 - Page Not Found",
+      "generalError": "Something went wrong!",
+      "defaultMessage": "Sorry, we couldn't find the page you were looking for.",
+      "goHome": "Go back to home"
+    },
   "okButton":"OK"
 }
 

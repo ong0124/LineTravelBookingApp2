@@ -67,7 +67,6 @@ export default defineNuxtConfig({
         '/LINETravelBookingApp2/',        // Updated home route
         '/LINETravelBookingApp2/en-US',   // Updated English home
         '/LINETravelBookingApp2/zh-CN',   // Updated Simplified Chinese home
-        '/LINETravelBookingApp2/zh-TW',   // Updated Traditional Chinese home
       ],
     },
   },
