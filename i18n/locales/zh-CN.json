@@ -1,0 +1,117 @@
+{
+  "language": "简体中文",
+  "title": "接驳车",
+
+  "footer": {
+    "shuttle": "接驳",
+    "charter": "包車",
+    "pickup": "接送",
+    "profile": "我的"
+  },
+
+  "HomePage":{
+  "oneWay": "单程",
+  "roundTrip": "往返",
+  "readAgreement": "我已阅读并同意",
+  "terms": "《接驳车订票须知》",
+  "confirm": "确认",
+  "notification": {
+    "title": "提示信息",
+    "description": "请阅读并勾选《接驳车订票须知》后再确认。"
+    }
+  },
+
+  "Booking": {
+    "airport": "尚义机场",
+    "pier": "水头码头",
+    "departure": "出发地点",
+    "arrival": "抵达地点",
+    "arrivalPortTime": "抵达码头时间",
+    "shuttleBusTime": "接驳车发车时间",
+    "ticketPrice": "票价",
+    "adultTicket": "成人票",
+    "childTicket": "婴儿票 (<= 2 岁)",
+    "contact": "联系人",
+    "phone": "联系电话",
+    "required": "必填",
+    "pricePerPerson": " / 人",
+    "outward": "去程",
+    "return": "返程"
+  },
+
+  "profile": {
+    "nickname": "昵称",
+    "userId": "用户ID/账号",
+    "editProfile": "编辑资料",
+    "logout": "退出登录"
+  },
+  "bookingStatus": {
+    "toPay": "待付款",
+    "notTraveled": "未出行",
+    "refunded": "已退款",
+    "all": "全部"
+  },
+  "profileSettings": {
+    "changePassword": "修改密码",
+    "systemSettings": "系统设置",
+    "contactSupport": "联系客服",
+    "feedback": "意见反馈"
+  },
+  "paymentPage": {
+    "title": "请你支付",
+    "choose_method": "选择支付方式",
+    "credit_card": "信用卡",
+    "pay_button": "支付"
+  },
+  "confirmationPage":{
+    "title": "订单确认",
+    "tripInfo":"行程信息",
+    "returnTripInfo":"返程信息",
+    "dateTime": "01月02日星期四 11:30",
+    "departure": "水头码头",
+    "destination": "尚义机场",
+    "OrderTotal":"订单总价",
+    "refundPolicy": "退改说明",
+    "adultTicket": "成人票 X ",
+    "infantTicket": "婴儿票 X ",
+    "total": "合计",
+    "currency": "¥",
+    "amount": "30.00",
+    "submitOrder": "提交订单"
+  },
+  "reminder": {
+  "notice": "温馨提示:",
+  "tips1": "1. 请确认购票信息准确无误。",
+  "tips2": "2. 接驳车线上购票截止时间为前一天20:00。",
+  "tips3": "3. 金门码头至机场预计车程为15-20分钟，为避免影响行程，航班到达时间与出发时间请至少间隔90分钟，请您提前合理规划出行方式并妥善安排好出行时间和具体线路，以便有充足时间办理值机、托运、安检等乘机手续，否则由此造成的损失和不便由旅客自行承担。",
+  "tips4": "4. 线上退票截止时间为发车时间前90分钟。",
+  "tips5": "5. 车票当日有效。逾期未使用的车票，系统将于3-5个工作日内自动退回到原支付渠道上。"
+  },
+  "accountInfo": {
+    "title": "账号信息",
+    "userId": "用户ID",
+    "nickname": "昵称",
+    "phone": "电话",
+    "email": "邮箱",
+    "saveButton": "保存"
+  },
+  "PopUpRules":{
+    "title1": "一、票价及适用范围：",
+    "general_ticket": "1、一般票：30元，适用于一般占位的乘客。",
+    "infant_ticket": "2、婴儿票：免费，适用于未满2岁的乘客。",
+    "title2": "二、购票及订单信息",
+    "notice": "1、请您在购票前，请仔细阅读《接驳车购票须知》",
+    "real_info": "2、请务必填写真实有效信息，以免耽误您的出行。",
+    "online_deadline": "3、接驳车线上购票截止时间为前一天20:00。",
+    "refund_deadline": "4、线上退票截止时间为发车时间前90分钟。",
+    "ticket_validity": "5、车票当日有效。逾期未使用的车票，系统将于3-5个工作日内自动退回到原支付渠道上。",
+    "contact": "6、咨询电话：吕小姐（电话：0910122683，微信号：km0910122683）。",
+    "title3": "三、接驳车服务",
+    "process": "1、搭乘接驳车的旅客，请参阅《接驳流程及时间表》。",
+    "safety": "2、为维护接驳乘坐安全，乘客不得携带武器及其他违禁物品上车，相关法律责任由旅客自行承担。",
+    "valuables": "3、贵重物品请您随身携带，自行妥善保管。",
+    "insurance": "4、车票已包含乘客险新台币150万元。",
+    "invoice": "5、如需开具发票，请提前联系吕小姐（电话：0910122683，微信号：km0910122683)，发票于抵达金门时向接驳人员领取。"
+  },
+  "okButton":"确认"
+}
