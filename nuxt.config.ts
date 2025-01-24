@@ -17,7 +17,7 @@ export default defineNuxtConfig({
       nitroConfig.prerender.routes = nitroConfig.prerender.routes ?? [];
 
       // Add the baseURL prefix to dynamically added routes
-      const baseURL = '/LINETravelBookingApp2'; // Updated base URL
+      const baseURL = '/LineTravelBookingApp2'; // Updated base URL
       const dynamicRoutes = ['/', '/en-US', '/zh-CN', '/zh-TW'].map(
         (route) => `${baseURL}${route}`
       );
@@ -48,7 +48,7 @@ export default defineNuxtConfig({
     defaultLocale: 'zh-TW',
   },
   app: {
-    baseURL: '/LINETravelBookingApp2/', // Updated base URL
+    baseURL: '/LineTravelBookingApp2/', // Updated base URL
     buildAssetsDir: '/_nuxt/', // 静态资源路径
   },
   vite: {
@@ -64,9 +64,9 @@ export default defineNuxtConfig({
       crawlLinks: false,
       failOnError: false,
       routes: [
-        '/LINETravelBookingApp2/',        // Updated home route
-        '/LINETravelBookingApp2/en-US',   // Updated English home
-        '/LINETravelBookingApp2/zh-CN',   // Updated Simplified Chinese home
+        '/LineTravelBookingApp2/',        // Updated home route
+        '/LineTravelBookingApp2/en-US',   // Updated English home
+        '/LineTravelBookingApp2/zh-CN',   // Updated Simplified Chinese home
       ],
     },
   },
