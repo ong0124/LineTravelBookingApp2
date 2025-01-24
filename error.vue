@@ -1,30 +1,12 @@
 <template>
-    <div class="error-page">
-      <h1 v-if="error.statusCode === 404">404 - 頁面找不到</h1>
-      <h1 v-else>出錯了！</h1>
-      <p>{{ error.message || '抱歉，我們找不到您需要的頁面。' }}</p>
-      <NuxtLink to="/">返回首頁</NuxtLink>
+    <div>
+      <h1 v-if="error.statusCode === 404" class="text-center p-2  text-red-500 text-2xl">{{ $t('errorPage.notFound') }}</h1>
+      <h1 v-else>{{ $t('errorPage.generalError') }}</h1>
+      <p class="m-1 text-gray-500 text-center ">{{ $t('errorPage.notFound') }}</p>
+      <NuxtLink to="/" class="flex justify-center text-blue-500">{{ $t('errorPage.goHome') }}</NuxtLink>
     </div>
   </template>
   
   <script setup>
   defineProps(['error'])
   </script>
-  
-  <style>
-  .error-page {
-    text-align: center;
-    padding: 2rem;
-    font-family: Arial, sans-serif;
-  }
-  p {
-    margin: 1rem 0;
-    color: #555;
-  }
-  
-  a {
-    text-decoration: underline;
-    color: #1e90ff;
-  }
-  </style>
-  
