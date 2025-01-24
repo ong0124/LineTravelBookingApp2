@@ -65,23 +65,23 @@
               </a-config-provider>
               <DashLine/>
               <div class="flex pl-6 pt-2 justify-evenly content-center">
-                <div class="flex flex-1">
+                <div class="flex flex-1 ">
                   <p class="flex-1">{{ $t('Booking.adultTicket') }}</p>
                   <div class="flex-1 flex  ">
                   <button @click="decrement('adult')">
                   <Icon name="i-mdi-minus-circle-outline"/></button>
-                  <p class="px-2 flex">{{ counts.adult }}</p>
+                  <p class="px-2 flex text-sm">{{ counts.adult }}</p>
                   <button @click="increment('adult')">
                     <Icon name="i-material-symbols-add-circle-outline"/>
                   </button>
                   </div>
                 </div>
-                <div class="flex flex-1">
+                <div class="flex flex-1 ">
                   <p class="flex-1">{{ $t('Booking.childTicket') }}</p>
-                  <div class="flex-1 flex">
+                  <div class="flex-1 flex ">
                   <button @click="decrement('child')">
                   <Icon name="i-mdi-minus-circle-outline"/></button>
-                  <p class="px-2 ">{{ counts.child }}</p>
+                  <p class="px-2 text-sm">{{ counts.child }}</p>
                   <button @click="increment('child')">
                     <Icon name="i-material-symbols-add-circle-outline"/>
                   </button>

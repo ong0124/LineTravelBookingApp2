@@ -29,6 +29,11 @@ export default defineNuxtConfig({
       }
     },
   },
+  icon: {
+    serverBundle: {
+      collections: ['tabler', 'mdi','material-symbols','majesticons','hugeicons'] // <!--- this
+    },
+  },
   modules: [
     '@ant-design-vue/nuxt',
     '@nuxtjs/tailwindcss',
