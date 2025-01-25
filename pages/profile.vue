@@ -11,7 +11,7 @@
                             <div class="flex-none">
                                 <button class="flex items-center rounded-x-3xl rounded-l-3xl text-slate-50 text-xs bg-green-300 p-1 "
                                 @click="navigateToEdit">
-                                    <Icon name="mdi-rename-box-outline" class="mr-1 w-4 h-4"/>
+                                    <Icon name="i-mdi-rename-box-outline" class="mr-1 w-4 h-4"/>
                                     {{ $t('profile.editProfile') }}
                                 </button>
                             </div>
@@ -48,7 +48,7 @@
                 <div>
                     <div class=" flex p-3 items-center  ">
                             <div class="flex flex-1 text-sm -400 justify-center">
-                                <Icon name = "solar-logout-2-outline" class="w-5 h-5 mr-2 "/>
+                                <Icon name = "i-solar-logout-2-outline" class="w-5 h-5 mr-2 "/>
                                 <p>{{ $t('profile.logout') }}</p>
                             </div>
                     </div>
@@ -65,17 +65,17 @@ import { useRouter } from 'vue-router';
 const localPath = useLocalePath();
 // 定義導航項目
 const BookingStatus = [
-  { name: "toPay", icon: "material-symbols-light-credit-card-clock-outline", route: "/toPay" },
-  { name: "notTraveled", icon: "material-symbols-calendar-clock-outline-sharp", route: "/notTraveled" },
-  { name: "refunded", icon: "tabler-credit-card-refund", route: "/refunded" },
-  { name: "all", icon: "material-symbols-lab-profile-outline", route: "/allBookingStatus" },
+  { name: "toPay", icon: "i-material-symbols-light-credit-card-clock-outline", route: "/toPay" },
+  { name: "notTraveled", icon: "i-material-symbols-calendar-clock-outline-sharp", route: "/notTraveled" },
+  { name: "refunded", icon: "i-tabler-credit-card-refund", route: "/refunded" },
+  { name: "all", icon: "i-material-symbols-lab-profile-outline", route: "/allBookingStatus" },
 ];
 
 const ProfileSettings =[
-    {name:"changePassword", icon:"material-symbols-lock-outline-sharp",route:"/"},
-    {name:"systemSettings", icon:"hugeicons-settings-03",route:"/"},
-    {name:"contactSupport", icon:"material-symbols-call-log-outline",route:"/"},
-    {name:"feedback", icon:"material-symbols-mail-outline",route:"/"},
+    {name:"changePassword", icon:"i-material-symbols-lock-outline-sharp",route:"/profile"},
+    {name:"systemSettings", icon:"i-hugeicons-settings-03",route:"/profile"},
+    {name:"contactSupport", icon:"i-material-symbols-call-log-outline",route:"/profile"},
+    {name:"feedback", icon:"i-material-symbols-mail-outline",route:"/profile"},
 ]
 
 // 切換選中的導航按鈕

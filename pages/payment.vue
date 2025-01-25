@@ -27,8 +27,19 @@
 
         </div>
         <div class="fixed inset-x-0 bottom-12 flex justify-center">
-            <button class="bg-green-400 text-white w-1/3 py-2 rounded">{{ $t('paymentPage.pay_button') }}</button>
+            <NuxtLink :to="localPath('/boardingpoint')" class="bg-green-400 text-white w-1/3 py-2 rounded flex justify-center">{{ $t('paymentPage.pay_button') }}</NuxtLink>
         </div>
     </div>
 
 </template>
+<script lang="ts">
+export default defineComponent({
+setup() {
+    const localPath = useLocalePath();
+    return {
+        localPath,
+    };
+},
+
+});
+</script>
