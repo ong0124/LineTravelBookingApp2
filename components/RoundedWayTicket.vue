@@ -32,6 +32,7 @@
                     value-format="HH:mm"
                     :disabled-hours="disabledHours"
                     :disabled-minutes="disabledMinutes"
+                    :minute-step="30"
                     format="HH:mm"
                   ></a-time-picker>
                 </div>
@@ -45,14 +46,15 @@
                   <a-space direction="vertical" :size="12">
                     <a-date-picker 
                       v-model:value="DateShuttle" 
-                      :disabled="!DateArrivalShip" 
+                      :disabled="true" 
                       :disabled-date="disabledDateAfter"
                     />
                   </a-space>
                   <a-time-picker
                     v-model:value="TimeShuttle"
                     value-format="HH:mm"
-                    :disabled="!TimeArrivalShip"
+                    :disabled="true"
+                    :minute-step="30"
                     format="HH:mm"
                   ></a-time-picker>
                 </div>
@@ -89,6 +91,7 @@
                     value-format="HH:mm"
                     :disabled-hours="disabledHours"
                     :disabled-minutes="disabledMinutes"
+                    :minute-step="30"
                     format="HH:mm"
                   ></a-time-picker>
                 </div>
@@ -102,14 +105,15 @@
                   <a-space direction="vertical" :size="12">
                     <a-date-picker 
                       v-model:value="DateShuttleReturn" 
-                      :disabled="!DateArrivalShipReturn" 
+                      :disabled="true" 
                       :disabled-date="disabledDateReturn"
                     />
                   </a-space>
                   <a-time-picker
                     v-model:value="TimeShuttleReturn"
                     value-format="HH:mm"
-                    :disabled="!TimeArrivalShipReturn"
+                    :disabled="true"
+                    :minute-step="30"
                     format="HH:mm"
                   ></a-time-picker>
                 </div>
@@ -127,6 +131,8 @@
                   </button>
                   </div>
                 </div>
+              </div>
+              <div class="flex pl-6 pt-2 justify-evenly content-center">
                 <div class="flex flex-1">
                   <p class="flex-1">{{ $t('Booking.childTicket') }}</p>
                   <div class="flex-1 flex">
@@ -140,10 +146,9 @@
                 </div>
               </div>
 
-              <div class="flex pl-6 pt-3">
+              <div class="flex pl-6 pt-3 justify-evenly content-center">
                 <p class="flex-1">{{ $t('Booking.ticketPrice') }}</p>
                 <p class="flex-1">&yen; {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
-                <p class="flex-1"></p>
               </div>
 
 
@@ -269,7 +274,7 @@ export default defineComponent({
       if (newTimeShuttleReturn) {
         // 將第一個時間加上 45 分鐘
         TimeShuttleReturn.value = dayjs(newTimeShuttleReturn, 'HH:mm')
-          .subtract(45, 'minute')
+          .add(45, 'minute')
           .format('HH:mm');
       } else {
         // 如果第一個時間清空，第二個時間框也重置

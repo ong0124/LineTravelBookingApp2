@@ -65,10 +65,10 @@ import { useRouter } from 'vue-router';
 const localPath = useLocalePath();
 // 定義導航項目
 const BookingStatus = [
-  { name: "toPay", icon: "material-symbols-light-credit-card-clock-outline", route: "/" },
-  { name: "notTraveled", icon: "material-symbols-calendar-clock-outline-sharp", route: "/" },
-  { name: "refunded", icon: "tabler-credit-card-refund", route: "/" },
-  { name: "all", icon: "material-symbols-lab-profile-outline", route: "/profile" },
+  { name: "toPay", icon: "material-symbols-light-credit-card-clock-outline", route: "/toPay" },
+  { name: "notTraveled", icon: "material-symbols-calendar-clock-outline-sharp", route: "/notTraveled" },
+  { name: "refunded", icon: "tabler-credit-card-refund", route: "/refunded" },
+  { name: "all", icon: "material-symbols-lab-profile-outline", route: "/allBookingStatus" },
 ];
 
 const ProfileSettings =[

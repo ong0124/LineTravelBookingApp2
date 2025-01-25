@@ -49,7 +49,17 @@
     "toPay": "To Pay",
     "notTraveled": "Not Traveled",
     "refunded": "Refunded",
-    "all": "All"
+    "all": "All",
+    "massage1": "If not paid within half an hour, the reservation will be automatically canceled!!",
+    "editOrder": "Edit Order",
+    "airport": "Shang yi Airport",
+    "pier": "Shuitou Pier",
+    "refundedtoUser":"Approved",
+    "refundedApproving":"Approving",
+    "adultTicket": "Adult Ticket x 2",
+    "infantTicket": "Infant Ticket x 1",
+    "dateTime": "Thursday, January 2nd, 11:30 AM",
+    "complete":"Done"
   },
   "profileSettings": {
     "changePassword": "Change Password",
@@ -119,6 +129,11 @@
       "defaultMessage": "Sorry, we couldn't find the page you were looking for.",
       "goHome": "Go back to home"
     },
+    "boardingpointPage": {
+  "title": "Boarding Point",
+  "flowchart": "Passenger Pick-up Process:",
+  "information": "Hello, please proceed to the lobby and check in with the staff holding a sign after the ferry arrives."
+},
   "okButton":"OK"
 }
 

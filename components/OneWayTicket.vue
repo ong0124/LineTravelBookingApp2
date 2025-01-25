@@ -30,11 +30,14 @@
               <a-config-provider :locale="antLocale">
                 <div class="flex pt-2 pl-4 space-x-4">
                   <a-space direction="vertical" :size="12">
-                    <a-date-picker v-model:value="DateArrivalShip" :disabled-date="disabledDate" />
+                    <a-date-picker 
+                    v-model:value="DateArrivalShip" 
+                    :disabled-date="disabledDate" />
                   </a-space>
                   <a-time-picker
                     v-model:value="TimeArrivalShip"
                     value-format="HH:mm"
+                    :minute-step="30"
                     :disabled-hours="disabledHours"
                     :disabled-minutes="disabledMinutes"
                     format="HH:mm"
@@ -51,14 +54,15 @@
                   <a-space direction="vertical" :size="12">
                     <a-date-picker 
                       v-model:value="DateShuttle" 
-                      :disabled="!DateArrivalShip" 
+                      :disabled="true" 
                       :disabled-date="disabledDateAfterFirst"
                     />
                   </a-space>
                   <a-time-picker
                     v-model:value="TimeShuttle"
+                    :minute-step="30"
                     value-format="HH:mm"
-                    :disabled="!TimeArrivalShip"
+                    :disabled="true"
                     format="HH:mm"
                   ></a-time-picker>
                 </div>
@@ -76,6 +80,8 @@
                   </button>
                   </div>
                 </div>
+              </div>
+              <div class="flex pl-6 pt-2 justify-evenly content-center">
                 <div class="flex flex-1 ">
                   <p class="flex-1">{{ $t('Booking.childTicket') }}</p>
                   <div class="flex-1 flex ">
@@ -88,10 +94,9 @@
                   </div>
                 </div>
               </div>
-              <div class="flex pl-6 pt-3">
+              <div class="flex pl-6 pt-3 justify-evenly content-center">
                 <p class="flex-1">{{ $t('Booking.ticketPrice') }}</p>
                 <p class="flex-1">&yen; {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
-                <p class="flex-1"></p>
               </div>
 
 
@@ -213,6 +218,15 @@ export default defineComponent({
         TimeShuttle.value = '';
       }
     });
+
+    watch(DateArrivalShip, (newValue: Dayjs | undefined) => {
+      if (newValue) {
+        DateShuttle.value = newValue; // 初始化返回班车时间
+      } else {
+        DateShuttle.value = undefined; // 如果清空返回船只时间，也清空班车时间
+      }
+    });
+
     // 點擊確認按鈕的邏輯
     const navigateToConfirmation = () => {
       
@@ -282,15 +296,6 @@ export default defineComponent({
       disabledDate,
       disabledDateAfterFirst, 
     };
-  },
-  watch: {
-      DateArrivalShip(newValue: Dayjs | undefined) {
-      if (newValue) {
-        this.DateShuttle = newValue; 
-      } else {
-        this.DateShuttle = undefined; 
-      }
-    },
   },
 });
 </script>

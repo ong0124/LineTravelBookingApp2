@@ -49,7 +49,17 @@
     "toPay": "待付款",
     "notTraveled": "未出行",
     "refunded": "已退款",
-    "all": "全部"
+    "all": "全部",
+    "massage1":"未在以下时间付款，预订将自动取消！！",
+    "editOrder": "修改订单",
+    "airport": "尚义机场",
+    "pier": "水头码头",
+    "refundedtoUser": "已批准",
+    "refundedApproving": "审批中",
+    "adultTicket": "成人票 X 2",
+    "infantTicket": "婴儿票 X 1",
+    "dateTime": "01月02日星期四 11:30",
+    "complete":"完成"
   },
   "profileSettings": {
     "changePassword": "修改密码",
@@ -118,6 +128,11 @@
       "generalError": "出错了！",
       "defaultMessage": "抱歉，我们找不到您需要的页面。",
       "goHome": "返回首页"
+    },
+    "boardingpointPage": {
+      "title": "上车地点",
+      "flowchart": "接客流程图：",
+      "information": "您好，请在船班到达后前往大厅内向举牌人员报到。"
     },
   "okButton":"确认"
 }

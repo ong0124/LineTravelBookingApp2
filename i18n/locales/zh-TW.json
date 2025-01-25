@@ -49,7 +49,17 @@
     "toPay": "待付款",
     "notTraveled": "未出行",
     "refunded": "已退款",
-    "all": "全部"
+    "all": "全部",
+    "massage1": "未在半小時時間内付款，預訂將自動取消！！",
+    "editOrder":"修改訂單",
+    "airport": "尚義機場",
+    "pier": "水頭碼頭",
+    "refundedtoUser": "已批准",
+    "refundedApproving": "審批中",
+    "adultTicket": "成人票 X 2",
+    "infantTicket": "嬰兒票 X 1",
+    "dateTime": "01月02日星期四 11:30",
+    "complete":"完成"
   },
   "profileSettings": {
     "changePassword": "修改密碼",
@@ -118,6 +128,12 @@
       "generalError": "出錯了！",
       "defaultMessage": "抱歉，我們找不到您需要的頁面。",
       "goHome": "返回首頁"
+    },
+
+    "boardingpointPage":{
+      "title":"上車地點",
+      "flowchart":"接客流程圖：",
+      "information":"您好，請在船班抵達後至大廳內向舉牌人員報到。"
     },
     "okButton":"確認"
   

@@ -1,0 +1,1 @@
+import n from"./ZnoNbVDj.js";import{d as a,Y as c,o as r,c as s,a as _,b as m}from"./AM5_rquS.js";const b=a({__name:"BackBtn",setup(p){const e=c();function o(){e.back()}return(l,u)=>{const t=n;return r(),s("div",null,[_("button",{onClick:o,class:"pl-2"},[m(t,{name:"tabler-arrow-back-up",class:"mr-1 bg-white ml-4"})])])}}});export{b as _};
