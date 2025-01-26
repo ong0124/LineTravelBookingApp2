@@ -134,7 +134,8 @@
   "flowchart": "Passenger Pick-up Process:",
   "information": "Hello, please proceed to the lobby and check in with the staff holding a sign after the ferry arrives."
 },
-  "okButton":"OK"
+  "okButton":"OK",
+  "alertMessage": "Please set the arrival date at the dock first."
 }
 
   

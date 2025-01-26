@@ -9,9 +9,9 @@
                 <div class="flex">
                         <p class="flex-1">{{ $t('profile.userId') }}</p>
                             <div class="flex-none">
-                                <button class="flex items-center rounded-x-3xl rounded-l-3xl text-slate-50 text-xs bg-green-300 p-1 "
+                                <button class="flex items-center rounded-x-3xl rounded-l-3xl text-slate-50 text-sm bg-green-300 p-1 "
                                 @click="navigateToEdit">
-                                    <Icon name="i-mdi-rename-box-outline" class="mr-1 w-4 h-4"/>
+                                <img src="/assets/icons/EditProfile.png" alt="Edit" class="mr-1 w-4 h-4 "/>
                                     {{ $t('profile.editProfile') }}
                                 </button>
                             </div>
@@ -25,9 +25,7 @@
                @click="selectStatus(status.name,status.route)"
                class=" flex flex-col items-center mx-auto text-sm"
                >
-                <Icon :name="status.icon"
-                class="w-6 h-6"
-                ></Icon>
+                <img :src="status.icon" :alt="status.name" class="w-6 h-6"/>
                 {{ $t(`bookingStatus.${status.name}`) }}
                </button>
             </div>
@@ -39,16 +37,16 @@
                 >
                     <div class="flex flex-1 ">
                         <div class="flex flex-1 text-sm ">
-                            <Icon :name = "settings.icon" class="w-5 h-5 mr-2"/>
+                            <img :src="settings.icon" :alt="settings.name" class="w-5 h-5 mr-2"/>
                             {{ $t('profileSettings.' + settings.name) }}
                         </div>
-                        <Icon name="ic-baseline-greater-than" class="w-4 h-4 bg-gray-300"></Icon>  
+                        <img src="/assets/icons/GreaterThan.png" alt="More" class="w-4 h-4 "/>
                     </div>
                 </div>
                 <div>
                     <div class=" flex p-3 items-center  ">
                             <div class="flex flex-1 text-sm -400 justify-center">
-                                <Icon name = "i-solar-logout-2-outline" class="w-5 h-5 mr-2 "/>
+                                <img src="/assets/icons/Logout.png" alt="Logout" class="w-5 h-5 mr-2"/>
                                 <p>{{ $t('profile.logout') }}</p>
                             </div>
                     </div>
@@ -61,22 +59,30 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
+import ToPayIcon from '@/assets/icons/ToPay.png';
+import NotTraveledIcon from '@/assets/icons/NotTraveled.png';
+import RefundIcon from '@/assets/icons/Refund.png';
+import AllIcon from '@/assets/icons/All.png';
+import PasswordIcon from '@/assets/icons/Password.png';
+import SettingsIcon from '@/assets/icons/Settings.png';
+import ContactIcon from '@/assets/icons/Contact.png';
+import ReviewIcon from '@/assets/icons/Review.png';
 
 const localPath = useLocalePath();
 // 定義導航項目
 const BookingStatus = [
-  { name: "toPay", icon: "i-material-symbols-light-credit-card-clock-outline", route: "/toPay" },
-  { name: "notTraveled", icon: "i-material-symbols-calendar-clock-outline-sharp", route: "/notTraveled" },
-  { name: "refunded", icon: "i-tabler-credit-card-refund", route: "/refunded" },
-  { name: "all", icon: "i-material-symbols-lab-profile-outline", route: "/allBookingStatus" },
+  { name: 'toPay', icon: ToPayIcon, route: '/toPay' },
+  { name: 'notTraveled', icon: NotTraveledIcon, route: '/notTraveled' },
+  { name: 'refunded', icon: RefundIcon, route: '/refunded' },
+  { name: 'all', icon: AllIcon, route: '/allBookingStatus' },
 ];
 
-const ProfileSettings =[
-    {name:"changePassword", icon:"i-material-symbols-lock-outline-sharp",route:"/profile"},
-    {name:"systemSettings", icon:"i-hugeicons-settings-03",route:"/profile"},
-    {name:"contactSupport", icon:"i-material-symbols-call-log-outline",route:"/profile"},
-    {name:"feedback", icon:"i-material-symbols-mail-outline",route:"/profile"},
-]
+const ProfileSettings = [
+  { name: 'changePassword', icon: PasswordIcon, route: '/profile' },
+  { name: 'systemSettings', icon: SettingsIcon, route: '/profile' },
+  { name: 'contactSupport', icon: ContactIcon, route: '/profile' },
+  { name: 'feedback', icon: ReviewIcon, route: '/profile' },
+];
 
 // 切換選中的導航按鈕
 const selectStatus = (statusName: string, route: string) => {

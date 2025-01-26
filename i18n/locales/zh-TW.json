@@ -135,7 +135,8 @@
       "flowchart":"接客流程圖：",
       "information":"您好，請在船班抵達後至大廳內向舉牌人員報到。"
     },
-    "okButton":"確認"
+    "okButton":"確認",
+     "alertMessage": "請先設定抵達碼頭的日期。"
   
 }
   

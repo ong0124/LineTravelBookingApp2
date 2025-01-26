@@ -24,8 +24,6 @@
 <script lang="ts">
 import { ref } from 'vue';
 import { defineComponent } from 'vue';
-import { notification } from 'ant-design-vue';
-import type { NotificationPlacement } from 'ant-design-vue';
 import { useI18n } from 'vue-i18n';
 
 

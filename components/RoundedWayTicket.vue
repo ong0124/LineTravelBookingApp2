@@ -89,8 +89,8 @@
                   <a-time-picker
                     v-model:value="TimeArrivalShipReturn"
                     value-format="HH:mm"
-                    :disabled-hours="disabledHours"
-                    :disabled-minutes="disabledMinutes"
+                    :disabled-hours="disabledHoursReturn"
+                    :disabled-minutes="disabledMinutesReturn"
                     :minute-step="30"
                     format="HH:mm"
                   ></a-time-picker>
@@ -194,6 +194,9 @@ import type { NotificationPlacement,ConfigProvider } from 'ant-design-vue';
 import { useI18n } from 'vue-i18n';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/zh-tw';
+import 'dayjs/locale/en';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import zhTW from 'ant-design-vue/es/locale/zh_TW';
 import enUS from 'ant-design-vue/es/locale/en_US';
@@ -237,17 +240,41 @@ export default defineComponent({
 
     const now = dayjs();
     const disabledHours = () => {
+      if (!DateArrivalShip.value || !DateArrivalShip.value.isSame(now, 'day') ) {
+      return [];
+      }
       const currentHour = now.hour();
       return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < currentHour);
     };
     const disabledMinutes = (selectedHour: number | null) => {
+      if (!DateArrivalShip.value || !DateArrivalShip.value.isSame(now, 'day')) {
+      return [];
+      }
       const currentHour = now.hour();
       const currentMinute = now.minute();
 
-      // 如果未選擇小時，禁用所有分鐘選項
-      if (selectedHour === null || selectedHour === undefined) {
-        return Array.from({ length: 60 }, (_, i) => i);
+      // 如果選中的小時是當前小時，禁用早於當前分鐘的選項
+      if (selectedHour === currentHour) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < currentMinute);
       }
+
+      // 其他情況，不禁用任何分鐘
+      return [];
+    };
+
+    const disabledHoursReturn = () => {
+      if (!DateArrivalShipReturn.value || !DateArrivalShipReturn.value.isSame(now, 'day') ) {
+      return [];
+      }
+      const currentHour = now.hour();
+      return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < currentHour);
+    };
+    const disabledMinutesReturn = (selectedHour: number | null) => {
+      if (!DateArrivalShipReturn.value || !DateArrivalShipReturn.value.isSame(now, 'day')) {
+      return [];
+      }
+      const currentHour = now.hour();
+      const currentMinute = now.minute();
 
       // 如果選中的小時是當前小時，禁用早於當前分鐘的選項
       if (selectedHour === currentHour) {
@@ -259,11 +286,23 @@ export default defineComponent({
     };
     
     watch(TimeArrivalShip, (newTimeShuttle) => {
+      if (!DateArrivalShip.value) {
+    // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
+        TimeArrivalShip.value = '';
+        alert('請先選擇到達日期');
+        return;
+      }
       if (newTimeShuttle) {
-        // 將第一個時間加上 45 分鐘
-        TimeShuttle.value = dayjs(newTimeShuttle, 'HH:mm')
-          .add(45, 'minute')
-          .format('HH:mm');
+        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
+
+        // 如果時間超過午夜，DateShuttle加一天
+        if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
+          DateShuttle.value = DateArrivalShip.value?.add(1, 'day');
+        } else {
+          DateShuttle.value = DateArrivalShip.value;
+        }
+
+        TimeShuttle.value = newShuttleTime.format('HH:mm');
       } else {
         // 如果第一個時間清空，第二個時間框也重置
         TimeShuttle.value = '';
@@ -271,11 +310,23 @@ export default defineComponent({
     });
 
     watch(TimeArrivalShipReturn, (newTimeShuttleReturn) => {
+      if (!DateArrivalShipReturn.value) {
+    // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
+        TimeArrivalShipReturn.value = '';
+        alert('請先選擇到達日期');
+        return;
+      }
       if (newTimeShuttleReturn) {
-        // 將第一個時間加上 45 分鐘
-        TimeShuttleReturn.value = dayjs(newTimeShuttleReturn, 'HH:mm')
-          .add(45, 'minute')
-          .format('HH:mm');
+        const newShuttleTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(30, 'minute');
+
+        // 如果時間超過午夜，DateShuttle加一天
+        if (newShuttleTimeReturn.isAfter(dayjs(newTimeShuttleReturn, 'HH:mm').endOf('day'))) {
+          DateShuttleReturn.value = DateArrivalShipReturn.value?.add(1, 'day');
+        } else {
+          DateShuttle.value = DateArrivalShip.value;
+        }
+
+        TimeShuttleReturn.value = newShuttleTimeReturn.format('HH:mm');
       } else {
         // 如果第一個時間清空，第二個時間框也重置
         TimeShuttleReturn.value = '';
@@ -293,7 +344,8 @@ export default defineComponent({
       if (newValue) {
         DateShuttle.value = newValue; // 初始化返回班车时间
       } else {
-        DateShuttle.value = undefined; // 如果清空返回船只时间，也清空班车时间
+        DateShuttle.value = undefined;
+        TimeArrivalShip.value = ''; // 如果清空返回船只时间，也清空班车时间
       }
     });
 
@@ -385,6 +437,8 @@ export default defineComponent({
       disabledDate,
       disabledDateAfter, 
       disabledDateReturn,
+      disabledHoursReturn,
+      disabledMinutesReturn,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;
       },

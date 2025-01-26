@@ -134,5 +134,6 @@
       "flowchart": "接客流程图：",
       "information": "您好，请在船班到达后前往大厅内向举牌人员报到。"
     },
-  "okButton":"确认"
+  "okButton":"确认",
+  "alertMessage": "请先设置抵达码头的日期。"
 }

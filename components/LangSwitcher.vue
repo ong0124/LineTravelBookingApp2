@@ -33,7 +33,7 @@ const selectLanguage = (value: "zh-TW"| "zh-CN" | "en-US" ) => {
     <!-- 下拉菜单 -->
     <ul
       v-if="isDropdownVisible"
-      class="absolute bg-white text-black rounded-md shadow-lg mt-2"
+      class="absolute bg-white text-black rounded-md shadow-lg mt-2 z-10"
     >
       <li
         v-for="item in locales"
