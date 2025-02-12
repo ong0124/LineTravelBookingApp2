@@ -33,8 +33,8 @@ const selectedPage = ref("shuttle");
 // 定義導航項目
 const pages = [
   { name: "shuttle", icon: "material-symbols-directions-car", route: "/" },
-  { name: "charter", icon: "mdi-bus", route: "/" },
-  { name: "pickup", icon: "mdi-car-search-outline", route: "/" },
+  { name: "reschedule", icon: "jam-write", route: "/reschedulePage" },
+  { name: "myTrip", icon: "streamline-baggage", route: "/myTrip" },
   { name: "profile", icon: "material-symbols-person-2-outline", route: "/profile" },
 ];
 

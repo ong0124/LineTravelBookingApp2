@@ -6,7 +6,10 @@
       "shuttle": "接駁",
       "charter": "包車",
       "pickup": "接送",
-      "profile": "我的"
+      "profile": "我的",
+      "order": "訂單",
+      "reschedule": "改簽",
+      "myTrip": "我的行程"
     },
 
   "HomePage":{
@@ -18,11 +21,13 @@
   "notification": {
     "title": "提示信息",
     "description": "请阅读并勾选《接驳车订票须知》后再确认。"
+    
     }
   },
 
   "Booking": {
     "airport": "尚義機場",
+    "arrivalAtAirportTime": "抵達機場時間",
     "pier": "水頭碼頭",
     "departure": "出發地點",
     "arrival": "抵達地點",
@@ -31,8 +36,8 @@
     "ticketPrice": "票價",
     "adultTicket": "成人票",
     "childTicket": "嬰兒票(<= 2嵗)",
-    "contact": "聯係人",
-    "phone": "聯係電話",
+    "contact": "聯絡人",
+    "phone": "聯絡電話",
     "required": "必填",
     "pricePerPerson": " /人",
     "outward": "去程",
@@ -50,7 +55,7 @@
     "notTraveled": "未出行",
     "refunded": "已退款",
     "all": "全部",
-    "massage1": "未在半小時時間内付款，預訂將自動取消！！",
+    "message1": "未在半小時時間内付款，預訂將自動取消！！",
     "editOrder":"修改訂單",
     "airport": "尚義機場",
     "pier": "水頭碼頭",
@@ -62,9 +67,11 @@
     "complete":"完成"
   },
   "profileSettings": {
+    "passenger": "乘客管理",
     "changePassword": "修改密碼",
     "systemSettings": "系統設置",
     "contactSupport": "聯係客服",
+    "myOrder": "我的訂單",
     "feedback": "意見反饋"
   },
   "paymentPage": {
@@ -135,8 +142,62 @@
       "flowchart":"接客流程圖：",
       "information":"您好，請在船班抵達後至大廳內向舉牌人員報到。"
     },
+    "PassengerPage": {
+    "passengers": "乘客",
+    "passengers1": "乘客1",
+    "passengers2": "乘客2",
+    "local": "本地",
+    "non-Local": "非本地",
+    "addPassenger": "新增乘客",
+    "IdNumber": "身份證號",
+    "Manage": "管理",
+    "birthday": "出生日期",
+    "phoneNumber": "手機號碼"
+  },
+  "RefundPage":{
+  "title": "退款申請",
+  "applyRefund": "申請退款",
+  "adultTicket": "成人票 X 1",
+  "childTicket": "兒童票 X 1",
+  "refundReason": "退款理由 （可選）",
+  "refundType": "退款類型",
+  "enterRefundReason": "請輸入退款理由（可選）",
+  "paid": "已付款",
+  "changeOfPlans": "計劃變更",
+  "tripCancellationOrAdjustment": "行程取消或調整",
+  "bookingError": "誤訂（錯誤的日期、時間、地點等）",
+  "flightOrFerryIssue": "船班或航班問題",
+  "systemError": "系統錯誤",
+  "other": "其他"
+  },
+  "ReschedulePage":{
+    "title":"改簽 / 取消訂單",
+    "originalSchedule": "原班信息",
+    "newSchedule": "新航班信息",
+    "departureTime": "發車時間:",
+    "passengerCount": "人數:",
+    "amountDue": "應補上",
+    "confirmReschedule": "確認改簽",
+    "message": "不能改簽或取消今日的行程，請聯絡客服。"
+  },
+  "orderDetail": {
+    "title": "訂單詳情",
+    "date": "2025年01月02日",
+    "time": "11:30 ",
+    "nationality": "國籍",
+    "name": "姓名",
+    "status": "狀態",
+    "ticketIssued": "已出票",
+    "orderNumber": "訂單號",
+    "orderStatus": "訂單狀態",
+    "paid": "已付款",
+    "orderDate": "訂單日期"
+  },
     "okButton":"確認",
-     "alertMessage": "請先設定抵達碼頭的日期。"
-  
+     "alertMessage": "請先設定抵達碼頭的日期。",
+     "alertMessage2": "只能預定明天的票，請選擇明天及以後！",
+     "forReschedule": "我想改簽",
+     "applyRefund": "我想申請退款",
+     "cancelOrder": "取消訂單"
 }
   

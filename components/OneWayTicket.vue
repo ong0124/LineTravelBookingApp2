@@ -24,22 +24,30 @@
                 </div>
               <div class="border-b-2 py-3"></div>
               <div class="flex pt-3 pl-4">
-                <Icon name="i-majesticons-ship-line" class="bg-green-300 w-6 h-6"></Icon>
-                <p class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
+                <Icon :name="isSwapped ? 'i-material-symbols-flight-land' : 'i-majesticons-ship-line'" 
+                 class="bg-green-300 w-6 h-6"></Icon>
+                <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
+                <p v-else class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
               </div>
               <a-config-provider :locale="antLocale">
                 <div class="flex pt-2 pl-4 space-x-4">
                   <a-space direction="vertical" :size="12">
                     <a-date-picker 
                     v-model:value="DateArrivalShip" 
-                    :disabled-date="disabledDate" />
+                    :disabled-date="disabledDate"
+                    :show-today="false"
+                    @open-change="handleDatePickerOpen"
+                    />
                   </a-space>
                   <a-time-picker
                     v-model:value="TimeArrivalShip"
                     value-format="HH:mm"
                     :minute-step="30"
+                    :hour-step="1"
                     :disabled-hours="disabledHours"
                     :disabled-minutes="disabledMinutes"
+                    :hide-disabled-options="true" 
+                    :show-now="false"
                     format="HH:mm"
                   ></a-time-picker>
                 </div>
@@ -188,30 +196,20 @@ export default defineComponent({
     };
     
     const now = dayjs();
-    const disabledHours = () => {
-      if (!DateArrivalShip.value || !DateArrivalShip.value.isSame(now, 'day')) {
-      return [];
-      }
 
-      const currentHour = now.hour();
-       return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < currentHour);
+    const disabledHours = () => {
+  // 只允许 8 到 17 点
+     return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < 8 || hour > 18);
     };
 
     const disabledMinutes = (selectedHour: number | null) => {
-      if (!DateArrivalShip.value || !DateArrivalShip.value.isSame(now, 'day')) {
-      return [];
-      }
-
-      const currentHour = now.hour();
-      const currentMinute = now.minute();
-
-      // 如果選中的小時是當前小時，禁用早於當前分鐘的選項
-      if (selectedHour === currentHour) {
-        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < currentMinute);
-      }
-
-      // 其他情況，不禁用任何分鐘
-      return [];
+    if (selectedHour === 8) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < 30); // 8:30 之前禁用
+    }
+    if (selectedHour === 18) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute >= 30); // 17:30 之后禁用
+    }
+    return [];
     };
     
     watch(TimeArrivalShip, (newTimeShuttle) => {
@@ -238,6 +236,11 @@ export default defineComponent({
       }
     });
 
+    const handleDatePickerOpen = (open : boolean) => {
+    if (open) {
+    message.info(t('alertMessage2'));
+    }
+    };
     watch(DateArrivalShip, (newValue: Dayjs | undefined) => {
       if (newValue) {
         DateShuttle.value = newValue; // 初始化返回班車時間
@@ -282,7 +285,7 @@ export default defineComponent({
     };
     
     const disabledDate = (current: Dayjs): boolean => {
-    return current && current.isBefore(dayjs().startOf('day'));
+       return current && current.isBefore(dayjs().add(1, 'day').startOf('day'))
     };
 
     const disabledDateAfterFirst = (current: Dayjs): boolean => {
@@ -318,6 +321,7 @@ export default defineComponent({
       pricePerTicket: 30,
       disabledDate,
       disabledDateAfterFirst, 
+      handleDatePickerOpen
     };
   },
 });

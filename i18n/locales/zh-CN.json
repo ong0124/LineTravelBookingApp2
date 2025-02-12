@@ -6,7 +6,10 @@
     "shuttle": "接驳",
     "charter": "包車",
     "pickup": "接送",
-    "profile": "我的"
+    "profile": "我的",
+    "order": "订单",
+    "reschedule": "改签",
+    "myTrip": "我的行程"
   },
 
   "HomePage":{
@@ -23,6 +26,7 @@
 
   "Booking": {
     "airport": "尚义机场",
+    "arrivalAtAirportTime": "抵达机场时间",
     "pier": "水头码头",
     "departure": "出发地点",
     "arrival": "抵达地点",
@@ -50,7 +54,7 @@
     "notTraveled": "未出行",
     "refunded": "已退款",
     "all": "全部",
-    "massage1":"未在以下时间付款，预订将自动取消！！",
+    "message1":"未在以下时间付款，预订将自动取消！！",
     "editOrder": "修改订单",
     "airport": "尚义机场",
     "pier": "水头码头",
@@ -62,9 +66,11 @@
     "complete":"完成"
   },
   "profileSettings": {
+    "passenger": "乘客管理",
     "changePassword": "修改密码",
     "systemSettings": "系统设置",
     "contactSupport": "联系客服",
+    "myOrder": "我的订单",
     "feedback": "意见反馈"
   },
   "paymentPage": {
@@ -134,6 +140,62 @@
       "flowchart": "接客流程图：",
       "information": "您好，请在船班到达后前往大厅内向举牌人员报到。"
     },
+    "PassengerPage": {
+    "passengers": "乘客",
+    "passengers1": "乘客1",
+    "passengers2": "乘客2",
+    "local": "本地",
+    "non-Local": "非本地",
+    "addPassenger": "新增乘客",
+    "IdNumber": "身份证号",
+    "Manage": "管理",
+    "birthday": "出生日期",
+    "phoneNumber": "手机号"
+  }, 
+  "RefundPage":{
+  "title": "退款申请",
+  "applyRefund": "申请退款",
+  "paid": "已付款",
+  "refundReason": "退款理由（可选）",
+  "refundType": "退款类型",
+  "adultTicket": "成人票 X 1",
+   "enterRefundReason": "请输入退款理由（可选）",
+   "changeOfPlans": "计划变更",
+   "tripCancellationOrAdjustment": "行程取消或调整",
+   "bookingError": "误订（错误的日期、时间、地点等）",
+   "flightOrFerryIssue": "船班或航班问题",
+   "systemError": "系统错误",
+   "other": "其他",
+  "childTicket": "儿童票 X 1"
+  },
+  "ReschedulePage":{
+  "title":"改签 / 取消订单",
+  "originalSchedule": "原班信息",
+  "newSchedule": "新航班信息",
+  "departureTime": "发车时间:",
+  "passengerCount": "人数:",
+  "amountDue": "应补上",
+  "confirmReschedule": "确认改签",
+  "message": "不能改签或取消今日的行程，请联络客服。"
+  
+  },
+  "orderDetail": {
+    "title": "订单详情",
+    "date": "2025年01月02日",
+    "time": "11:30 ",
+    "nationality": "国籍",
+    "name": "姓名",
+    "status": "状态",
+    "ticketIssued": "已出票",
+    "orderNumber": "订单号",
+    "orderStatus": "订单状态",
+    "paid": "已付款",
+    "orderDate": "订单日期"
+  },
   "okButton":"确认",
-  "alertMessage": "请先设置抵达码头的日期。"
+  "alertMessage": "请先设置抵达码头的日期。",
+  "alertMessage2": "只能预定明天的票，请选择明天及以后！",
+  "forReschedule": "我想改签",
+  "applyRefund": "我想申请退款",
+  "cancelOrder": "取消订单"
 }

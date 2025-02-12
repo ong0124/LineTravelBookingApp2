@@ -6,7 +6,10 @@
     "shuttle": "Shuttle",
     "charter": "Charter",
     "pickup": "Pickup",
-    "profile": "My Profile"
+    "profile": "My Profile",
+    "order":"Order",
+    "reschedule": "Reschedule",
+    "myTrip":"My Trip"
   },
 
   "HomePage":{
@@ -18,11 +21,12 @@
     "notification": {
     "title": "Notification",
     "description": "Please read and check the box before confirming."
-    }
-  },
+  }
+},
 
-  "Booking": {
+"Booking": {
     "airport": "Shang yi Airport",
+    "arrivalAtAirportTime": "Arrival at Airport Time",
     "pier": "Shuitou Pier",
     "departure": "Departure Location",
     "arrival": "Arrival Location",
@@ -50,7 +54,7 @@
     "notTraveled": "Not Traveled",
     "refunded": "Refunded",
     "all": "All",
-    "massage1": "If not paid within half an hour, the reservation will be automatically canceled!!",
+    "message1": "If not paid within half an hour, the reservation will be automatically canceled!!",
     "editOrder": "Edit Order",
     "airport": "Shang yi Airport",
     "pier": "Shuitou Pier",
@@ -62,9 +66,11 @@
     "complete":"Done"
   },
   "profileSettings": {
+    "passenger": "Passenger Management",
     "changePassword": "Change Password",
     "systemSettings": "System Settings",
     "contactSupport": "Contact Support",
+    "myOrder":"My Order",
     "feedback": "Feedback"
   },
   "paymentPage": {
@@ -134,8 +140,63 @@
   "flowchart": "Passenger Pick-up Process:",
   "information": "Hello, please proceed to the lobby and check in with the staff holding a sign after the ferry arrives."
 },
+"PassengerPage":{
+  "passengers" : "Passenger",
+  "passengers1" : "Passenger1",
+  "passengers2" : "Passenger2",
+  "local" : "Local",
+  "non-Local": "Non-local",
+  "addPassenger":"addPassenger",
+  "IdNumber": "ID Number",
+  "Manage" :"Manage",
+  "birthday": "Date of Birth",
+  "phoneNumber":"Phone Number"
+},
+"RefundPage":{
+"title":"Refund Application",
+"applyRefund": "Apply for Refund",
+"adultTicket": "Adult Ticket X 1",
+"childTicket": "Child Ticket X 1",
+"refundReason": "Refund Reason (optional)",
+"refundType": "Refund Type",
+"enterRefundReason": "Please enter a refund reason (optional)",
+"paid": "Paid",
+"changeOfPlans": "Change of Plans",
+"tripCancellationOrAdjustment": "Trip Cancellation or Adjustment",
+"bookingError": "Booking Error (Wrong date, time, location, etc.)",
+"flightOrFerryIssue": "Flight or Ferry Issue",
+"systemError": "System Error",
+"other": "Other"
+},
+"ReschedulePage":{
+  "title":"Reschedule / Cancel Order",
+  "originalSchedule": "Original Schedule",
+  "newSchedule": "New Schedule",
+  "departureTime": "Departure Time:",
+  "passengerCount": "Number of Passengers:",
+  "amountDue": "Amount Due",
+  "confirmReschedule": "Confirm Reschedule",
+  "message": "Cannot reschedule or cancel today's trip, please contact customer service."
+},
+"orderDetail":{
+  "title": "Order Details",
+  "date": "2025 January 2nd",
+  "time": "11:30 AM",
+  "nationality": "Nationality",
+  "name":"Name",
+  "status": "Status",
+  "ticketIssued": "Ticket Issued",
+  "orderNumber": "Order Number",
+  "orderStatus": "Order Status",
+  "paid": "Paid",
+  "orderDate": "Order Date"
+},
   "okButton":"OK",
-  "alertMessage": "Please set the arrival date at the dock first."
+  "alertMessage": "Please set the arrival date at the dock first.",
+  "alertMessage2": "Only tickets for tomorrow can be booked, please select tomorrow or later!",
+  "forReschedule": "I want to Reschedule",
+  "applyRefund": "Apply for refund",
+  "cancelOrder": "Cancel Order"
 }
 
   

@@ -10,7 +10,7 @@
   
     <div>
       <div class="text-red-600 text-sm flex bg-yellow-300 pl-4">
-        {{ $t('bookingStatus.massage1') }}
+        {{ $t('bookingStatus.message1') }}
       </div>
   
       <div class="pl-2 pt-4 pb-4">

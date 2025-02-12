@@ -57,16 +57,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRouter } from 'vue-router';
 import ToPayIcon from '@/assets/icons/ToPay.png';
 import NotTraveledIcon from '@/assets/icons/NotTraveled.png';
 import RefundIcon from '@/assets/icons/Refund.png';
-import AllIcon from '@/assets/icons/All.png';
 import PasswordIcon from '@/assets/icons/Password.png';
 import SettingsIcon from '@/assets/icons/Settings.png';
 import ContactIcon from '@/assets/icons/Contact.png';
 import ReviewIcon from '@/assets/icons/Review.png';
+import passengerIcon from '@/assets/icons/passengerIcon.png';
+import orderIcon from '@/assets/icons/orderIcon.png';
 
 const localPath = useLocalePath();
 // 定義導航項目
@@ -74,10 +74,11 @@ const BookingStatus = [
   { name: 'toPay', icon: ToPayIcon, route: '/toPay' },
   { name: 'notTraveled', icon: NotTraveledIcon, route: '/notTraveled' },
   { name: 'refunded', icon: RefundIcon, route: '/refunded' },
-  { name: 'all', icon: AllIcon, route: '/allBookingStatus' },
+  { name: 'all', icon: orderIcon, route: '/allBookingStatus' },
 ];
 
 const ProfileSettings = [
+  { name: 'passenger', icon: passengerIcon, route: '/passengerPages' },
   { name: 'changePassword', icon: PasswordIcon, route: '/profile' },
   { name: 'systemSettings', icon: SettingsIcon, route: '/profile' },
   { name: 'contactSupport', icon: ContactIcon, route: '/profile' },

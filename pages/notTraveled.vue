@@ -38,6 +38,9 @@
                 <div class="flex justify-end">
                     <p class="text-red-500 ">{{ $t('bookingStatus.notTraveled') }}</p>
                 </div>
+                <div class="flex justify-end pt-4 px-2 underline text-blue-500">
+                  <nuxt-link to="/reschedulePage">{{ $t('forReschedule') }}</nuxt-link>
+                </div>
             </div>
             </div>
         </div>

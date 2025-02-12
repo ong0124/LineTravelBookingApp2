@@ -7,31 +7,32 @@
       {{ $t('bookingStatus.all') }}
     </h1>
   </header>
-
   <div>
-    <div class="pl-2 pt-4">
-      <div
-        v-for="index in 2"
-        :key="index"
-        class="bg-white p-4 rounded-lg flex mb-4"
-      >
-        <div class="flex text-normal pl-2 flex-1">
-          <div class="flex flex-1">
-            <p>{{ $t('bookingStatus.pier') }}</p>
-            <Icon
-              name="material-symbols-arrow-right-alt"
-              class="mx-2 w-6 h-6"
-            ></Icon>
-            <p>{{ $t('bookingStatus.airport') }}</p>
+    <nuxt-link to="/toPay">
+      <div class="pl-2 pt-4">
+        <div
+          v-for="index in 2"
+          :key="index"
+          class="bg-white p-4 rounded-lg flex mb-4"
+        >
+          <div class="flex text-normal pl-2 flex-1">
+            <div class="flex flex-1">
+              <p>{{ $t('bookingStatus.pier') }}</p>
+              <Icon
+                name="material-symbols-arrow-right-alt"
+                class="mx-2 w-6 h-6"
+              ></Icon>
+              <p>{{ $t('bookingStatus.airport') }}</p>
+            </div>
+            <p class="text-red-500">
+              {{ $t('bookingStatus.toPay') }}
+            </p>
           </div>
-          <p class="text-red-500">
-            {{ $t('bookingStatus.toPay') }}
-          </p>
         </div>
       </div>
-    </div>
+    </nuxt-link>
 
-    <div>
+    <nuxt-link to="/notTraveled">
       <div class="pl-2">
         <div
           v-for="index in 2"
@@ -68,64 +69,68 @@
           </div>
         </div>
       </div>
-    </div>
+    </nuxt-link>
 
-    <div class="pl-2">
+    <nuxt-link to="/refundApply">
+      <div class="pl-2">
         <div class="bg-white p-4 rounded-lg flex mb-4">
-            <div class="flex text-normal pl-2 flex-1">
+          <div class="flex text-normal pl-2 flex-1">
             <div class="flex flex-1">
-                <p>{{ $t('bookingStatus.pier') }}</p>
-                <Icon
-                name="material-symbols-arrow-right-alt"
-                class="mx-2 w-6 h-6"
-                ></Icon>
-                <p>{{ $t('bookingStatus.airport') }}</p>
+              <p>{{ $t('bookingStatus.pier') }}</p>
+              <Icon
+              name="material-symbols-arrow-right-alt"
+              class="mx-2 w-6 h-6"
+              ></Icon>
+              <p>{{ $t('bookingStatus.airport') }}</p>
             </div>
             <p class="text-orange-400">
-                {{ $t('bookingStatus.refundedApproving') }} &yen; &nbsp;30.00
+              {{ $t('bookingStatus.refundedApproving') }} &yen; &nbsp;30.00
             </p>
-            </div>
+          </div>
         </div>
         <div
-            v-for="index in 2"
-            :key="index"
-            class="bg-white p-4 rounded-lg flex mb-4"
+        v-for="index in 2"
+        :key="index"
+        class="bg-white p-4 rounded-lg flex mb-4"
         >
-            <div class="flex text-normal pl-2 flex-1">
-            <div class="flex flex-1">
-                <p>{{ $t('bookingStatus.pier') }}</p>
-                <Icon
-                name="material-symbols-arrow-right-alt"
-                class="mx-2 w-6 h-6"
-                ></Icon>
-                <p>{{ $t('bookingStatus.airport') }}</p>
-            </div>
-            <p class="text-green-500">
-                {{ $t('bookingStatus.refundedtoUser') }} &yen; &nbsp;30.00
-            </p>
-            </div>
+        <div class="flex text-normal pl-2 flex-1">
+          <div class="flex flex-1">
+            <p>{{ $t('bookingStatus.pier') }}</p>
+            <Icon
+            name="material-symbols-arrow-right-alt"
+            class="mx-2 w-6 h-6"
+            ></Icon>
+            <p>{{ $t('bookingStatus.airport') }}</p>
+          </div>
+          <p class="text-green-500">
+            {{ $t('bookingStatus.refundedtoUser') }} &yen; &nbsp;30.00
+          </p>
         </div>
       </div>
-      <div class="pl-2 pb-16">
-        <div
-            v-for="index in 5"
-            :key="index"
-            class="bg-white p-4 rounded-lg flex mb-4 text-gray-500"
-        >
-            <div class="flex text-normal pl-2 flex-1">
-            <div class="flex flex-1">
-                <p>{{ $t('bookingStatus.pier') }}</p>
-                <Icon
-                name="material-symbols-arrow-right-alt"
-                class="mx-2 w-6 h-6"
-                ></Icon>
-                <p>{{ $t('bookingStatus.airport') }}</p>
-            </div>
-            <p class="text-gray-500">
-                {{ $t('bookingStatus.complete') }}
-            </p>
-            </div>
-        </div>
+    </div>
+  </nuxt-link>
+  <nuxt-link to="/orderDetail">
+    <div class="pl-2 pb-16">
+      <div
+          v-for="index in 5"
+          :key="index"
+          class="bg-white p-4 rounded-lg flex mb-4 text-gray-500"
+      >
+          <div class="flex text-normal pl-2 flex-1">
+          <div class="flex flex-1">
+              <p>{{ $t('bookingStatus.pier') }}</p>
+              <Icon
+              name="material-symbols-arrow-right-alt"
+              class="mx-2 w-6 h-6"
+              ></Icon>
+              <p>{{ $t('bookingStatus.airport') }}</p>
+          </div>
+          <p class="text-gray-500">
+              {{ $t('bookingStatus.complete') }}
+          </p>
+          </div>
       </div>
+    </div>
+  </nuxt-link>
   </div>
 </template>
