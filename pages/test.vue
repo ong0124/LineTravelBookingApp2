@@ -1,327 +1,164 @@
 <template>
-    <div class="flex-col p-4">
-        <div class="flex justify-around">
-                <div class="flex"><Icon name="i-material-symbols-directions-car" class="bg-gray-500 w-6 h-6"/>
-                  <p class="flex-1 text-gray-500 ml-2">{{ $t('Booking.departure') }}</p>
-                </div>
-                <div class="flex"><Icon name="i-mdi-map-marker-radius-outline" class="bg-gray-500 w-6 h-6"/>
-                  <p class="flex-1 text-gray-500 ml-2">{{ $t('Booking.arrival') }}</p>
-                </div>
-              </div>
-              <div class="flex justify-evenly">
-                  <!-- 根據狀態決定順序 -->
-                  <p v-if="isSwapped" class="ml-auto text-2xl">{{ $t('Booking.airport') }}</p>
-                  <p v-else class="ml-auto text-2xl">{{ $t('Booking.pier') }}</p>
-                  
-                  <Icon
-                    name="i-hugeicons-exchange-01"
-                    class="mx-auto bg-green-600 w-7 h-7 cursor-pointer"
-                    @click="swapText"
-                  />
+   <div class="flex flex-col">
+    <!-- 頂部標題 -->
+      <header class="py-6 border-b bg-green-400 flex items-center ">
+        <h1 class="absolute left-1/2 transform-translate-x-1/2 text-xl font-bold capitalize">
+          {{ $t("Management.orderManagement") }}
+        </h1>
+      </header>
 
-                  <p v-if="isSwapped" class="mr-auto text-2xl">{{ $t('Booking.pier') }}</p>
-                  <p v-else class="mr-auto text-2xl">{{ $t('Booking.airport') }}</p>
-                </div>
-              <div class="border-b-2 py-3"></div>
-              <div class="flex pt-3 pl-4">
-                <Icon name="i-majesticons-ship-line" class="bg-green-300 w-6 h-6"></Icon>
-                <p class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
-              </div>
-              <a-config-provider :locale="antLocale">
-                <div class="flex pt-2 pl-4 space-x-4">
-                  <a-space direction="vertical" :size="12">
-                    <a-date-picker 
-                    v-model:value="DateArrivalShip" 
-                    :disabled-date="disabledDate"
-                    :show-today="false"
-                    @open-change="handleDatePickerOpen"
-                    />
-                  </a-space>
-                  <a-time-picker
-                    v-model:value="TimeArrivalShip"
-                    value-format="HH:mm"
-                    :minute-step="30"
-                    :hour-step="1"
-                    :disabled-hours="disabledHours"
-                    :disabled-minutes="disabledMinutes"
-                    :hide-disabled-options="true" 
-                    :show-now="false"
-                    format="HH:mm"
-                  ></a-time-picker>
-                </div>
-              </a-config-provider>
+    <div class="flex">
+      <!-- 側邊欄 -->
+      <div class="bg-stone-50 shadow-md flex flex-col h-auto">
+        <div
+          v-for="option in options"
+          :key="option.name"
+          @click="selectedoption = option.name"
+          class="flex flex-col py-4 items-center text-sm shadow-sm px-4 cursor-pointer transition-all duration-200"
+          :class="selectedoption === option.name ? 'text-green-500 font-bold bg-teal-50' : 'text-gray-500 hover:text-green-400'"
+        >
+          <Icon :name="option.icon" class="h-6 w-6" />
+          <span class="ml-1">{{ $t(`Management.${option.name}`) }}</span>
+        </div>
+      </div>
 
-              <div class="flex pt-3 pl-4">
-                <Icon name="i-material-symbols-directions-car" class="bg-green-300 w-6 h-6"></Icon>
-                <p class="text-green-300">{{ $t('Booking.shuttleBusTime') }}</p>
-              </div>
-              <a-config-provider :locale="antLocale">
-                <div class="flex pt-2 pl-4 space-x-4">
-                  <a-space direction="vertical" :size="12">
-                    <a-date-picker 
-                      v-model:value="DateShuttle" 
-                      :disabled="true" 
-                      :disabled-date="disabledDateAfterFirst"
-                      
-                    />
-                  </a-space>
-                  <a-time-picker
-                    v-model:value="TimeShuttle"
-                    :minute-step="30"
-                    value-format="HH:mm"
-                    :disabled="true"
-                    format="HH:mm"
-                  ></a-time-picker>
-                </div>
-              </a-config-provider>
-              <DashLine/>
-              <div class="flex pl-6 pt-2 justify-evenly content-center">
-                <div class="flex flex-1 ">
-                  <p class="flex-1">{{ $t('Booking.adultTicket') }}</p>
-                  <div class="flex-1 flex  ">
-                  <button @click="decrement('adult')">
-                  <Icon name="i-mdi-minus-circle-outline"/></button>
-                  <p class="px-2 flex text-sm">{{ counts.adult }}</p>
-                  <button @click="increment('adult')">
-                    <Icon name="i-material-symbols-add-circle-outline"/>
-                  </button>
-                  </div>
-                </div>
-              </div>
-              <div class="flex pl-6 pt-2 justify-evenly content-center">
-                <div class="flex flex-1 ">
-                  <p class="flex-1">{{ $t('Booking.childTicket') }}</p>
-                  <div class="flex-1 flex ">
-                  <button @click="decrement('child')">
-                  <Icon name="i-mdi-minus-circle-outline"/></button>
-                  <p class="px-2 text-sm">{{ counts.child }}</p>
-                  <button @click="increment('child')">
-                    <Icon name="i-material-symbols-add-circle-outline"/>
-                  </button>
-                  </div>
-                </div>
-              </div>
-              <div class="flex pl-6 pt-3 justify-evenly content-center">
-                <p class="flex-1">{{ $t('Booking.ticketPrice') }}</p>
-                <p class="flex-1">&yen; {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
-              </div>
+      <!-- 主要內容區 -->
+      <div class="flex-1 flex flex-col">
+        <!-- 標題 + 按鈕 -->
+        <div class="pt-2 pl-4 bg-sky-50 flex justify-between items-center">
+          <h2 class="font-bold pb-2">{{ $t(titleKey) }}</h2>
+          <button 
+            v-if="buttonText" 
+            :class="buttonClass"
+            class="shadow-md rounded-xl px-2 mx-2 mb-2 text-white"
+          >
+            {{ $t(buttonText) }}
+          </button>
+        </div>
 
-
-              <div class="flex py-4 px-6 content-center">
-                <p class="flex-none pr-6">{{ $t('Booking.contact') }}</p>
-                <input
-                  type="text"
-                  placeholder="必填"
-                  v-model="contact"
-                  class="flex-1 px-2 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
-              </div>
-
-              <div class="flex py-4 px-6 content-center">
-                <p class="flex-none pr-2">{{ $t('Booking.phone') }}</p>
-                <input
-                  type="text"
-                  placeholder="必填"
-                  v-model="phone"
-                  class="flex-1 px-2 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
-              </div>
-              
-              
-            </div>
-            <div class="flex justify-center">
-                <input
-                    type="checkbox"
-                    id="checkbox"
-                    v-model="isChecked"
-                    class="h-5 w-3 border-black rounded-full"/>
-                    <label for="checkbox" class="ml-2 text-sm text-gray-700">{{ $t('HomePage.readAgreement') }}</label>
-                    <PopUpRules/>
-              </div>
-            <div class="pt-1 flex justify-center pb-4">
-                <a-button
-                  type="primary"
-                  @click="navigateToConfirmation"
-                 class="w-2/3 rounded-lg bg-green-500 text-white">{{ $t('HomePage.confirm') }}</a-button>
-              </div>
+        <!-- 搜索框 -->
+         <div class="bg-white px-4 py-2 ">
+           <div class="flex items-center border rounded-md w-1/3">
+             <Icon name="material-symbols-search-rounded" class="h-5 w-5 text-gray-500 mx-2" /></input>
+             <input
+             type="text"
+             class=" py-1 w-full rounded-md focus:ring-0 focus:border-transparent border-none outline-none"
+             :placeholder="$t('Management.searchOrder')"
+             >
+           </div>
+         </div>
+        <div class=" bg-white h-full px-4 py-2">
+          <div class="overflow-x-auto">
+            <table class="table-auto w-full border-collapse border border-gray-200">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th v-for="(header, index) in translatedHeaders" :key="index" class="border">
+                    {{ header }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(order, index) in filteredOrders" :key="index" class="border-b">
+                  <td class="border p-2">{{ order.id }}</td>
+                  <td class="border p-2">{{ order.ticketCode }}</td>
+                  <td class="border p-2">{{ order.pickup }}</td>
+                  <td class="border p-2">{{ order.dropoff }}</td>
+                  <td class="border p-2">{{ order.time }}</td>
+                  <td class="border p-2">
+                    <span :class="statusClass(order.status)">{{ order.status }}</span>
+                  </td>
+                  <td class="border p-2">{{ order.fullTickets }}</td>
+                  <td class="border p-2">{{ order.price }}</td>
+                  <td class="border p-2">{{ order.date }}</td>
+                  <td class="border p-2">{{ order.contact }}</td>
+                  <td class="border p-2">{{ order.phone }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </template>
 
-<script lang="ts">
-import { defineComponent,ref,watch } from 'vue';
-import type { NotificationPlacement} from 'ant-design-vue';
-import { useI18n } from 'vue-i18n';
-import type { Dayjs } from 'dayjs';
-import dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
-import 'dayjs/locale/zh-tw';
-import 'dayjs/locale/en';
-import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import zhTW from 'ant-design-vue/es/locale/zh_TW';
-import enUS from 'ant-design-vue/es/locale/en_US';
+<script setup lang="ts">
+import { ref, computed } from "vue";
+import { useI18n } from 'vue-i18n'
 
-export default defineComponent({
-    setup() {
-    const { locale } = useI18n(); 
-    const localPath = useLocalePath();
-    const isChecked = ref(false); // 定義復選框狀態
-    const DateArrivalShip = ref<Dayjs>();
-    const DateShuttle = ref<Dayjs>(); // 選擇的日期
-    const TimeArrivalShip = ref<string>('');
-    const TimeShuttle = ref<string>(''); // 選擇的時間
-    const phone = ref(''); // 聯繫電話
-    const contact = ref(''); // 聯繫人
-    const counts = ref({ adult: 1, child: 1 }); // 成人和兒童票數
-    const pricePerTicket = ref(30); // 單張票價
-    const tab = ref<string>('oneway');
-    const totalPrice = computed(() => {
-      return counts.value.adult * pricePerTicket.value;
-    });
-    const isSwapped = ref(false);
-    
-    const antLocales = {
-      'zh-CN': zhCN,
-      'zh-TW': zhTW,
-      'en-US': enUS,
-    };
-    const antLocale = computed(() => antLocales[locale.value] || zhTW);
-    const { t } = useI18n();
+const { t } = useI18n();
+const searchQuery = ref('')
 
-    // 打开通知
+// 訂單數據
+const orders = ref([
+  { id: '20250128000207', ticketCode: '4482451', pickup: '水头码头', dropoff: '尚义机场', time: '2025/2/6 10:00:00', status: '未出行', fullTickets: 2, price: 50, date: '2025/1/28 14:49:21', contact: '张三', phone: '1234567890' },
+  { id: '20250203000148', ticketCode: '9367772', pickup: '水头码头', dropoff: '尚义机场', time: '2025/2/6 10:00:00', status: '已完成', fullTickets: 1, price: 30, date: '2025/2/3 11:17:14', contact: '李四', phone: '0987654321' }
+]);
 
-    const openNotification = (placement: NotificationPlacement) => {
-      notification.open({
-        message: t('HomePage.notification.title') ,
-        description: t('HomePage.notification.description'),
-        placement,
-      });
-    };
-    
-    const now = dayjs();
-    
-    const disabledHours = () => {
-  // 只允许 8 到 17 点
-     return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < 8 || hour > 17);
-    };
+// 使用 i18n 獲取表頭名稱
+const translatedHeaders = computed(() => [
+  t("Management.orderNumber"),
+  t("Management.boardingCode"),
+  t("Management.boardingPoint"),
+  t("Management.dropOffPoint"),
+  t("Management.rideTime"),
+  t("Management.status"),
+  t("Management.fullTicketCount"),
+  t("Management.unitPrice"),
+  t("Management.orderDate"),
+  t("Management.orderContact"),
+  t("Management.orderPhoneNumber")
+]);
 
-    const disabledMinutes = (selectedHour: number | null) => {
-    if (selectedHour === 8) {
-        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < 30); // 8:30 之前禁用
-    }
-    if (selectedHour === 17) {
-        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute >= 30); // 17:30 之后禁用
-    }
-    return [];
-    };
-    const handleDatePickerOpen = (open : boolean) => {
-    if (open) {
-    message.info(t('alertMessage2'));
-    }
-    };
-    
-    watch(TimeArrivalShip, (newTimeShuttle) => {
-      if (!DateArrivalShip.value) {
-    // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
-        TimeArrivalShip.value = '';
-        alert(t('alertMessage'));
-        return;
-      }
-      if (newTimeShuttle) {
-        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
-
-        // 如果時間超過午夜，DateShuttle加一天
-        if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
-          DateShuttle.value = DateArrivalShip.value?.add(1, 'day');
-        } else {
-          DateShuttle.value = DateArrivalShip.value;
-        }
-
-        TimeShuttle.value = newShuttleTime.format('HH:mm');
-      } else {
-        // 如果第一個時間清空，第二個時間框也重置
-        TimeShuttle.value = '';
-      }
-    });
-
-    watch(DateArrivalShip, (newValue: Dayjs | undefined) => {
-      if (newValue) {
-        DateShuttle.value = newValue; // 初始化返回班車時間
-
-        // 重置 TimeArrivalShip 的值，防止顯示默認時間
-        TimeArrivalShip.value = '';
-      } else {
-        DateShuttle.value = undefined; // 如果清空返回船只時間，也清空班車時間
-        TimeArrivalShip.value = ''; // 清空時間選擇器
-      }
-    });
-
-    // 點擊確認按鈕的邏輯
-    const navigateToConfirmation = () => {
-      
-      if (!isChecked.value) {
-        openNotification('bottom'); // 如果未勾選，彈出通知
-      } else {
-        const path = localPath('/confirmationPage');
-        navigateTo({
-          path,
-          query: {
-            tab: tab.value,
-            adult: counts.value.adult,
-            child: counts.value.child,
-            totalPrice: totalPrice.value,
-            DateArrivalShip: DateArrivalShip.value? DateArrivalShip.value.format("YYYY-MM-DD") : undefined,
-            DateShuttle: DateShuttle.value? DateShuttle.value.format("YYYY-MM-DD") : undefined,
-            TimeArrivalShip: TimeArrivalShip.value,
-            TimeShuttle: TimeShuttle.value,
-            phone: phone.value,
-            contact: contact.value,
-            p2: isSwapped.value ? 'Booking.airport' : 'Booking.pier',
-            p3: isSwapped.value ? 'Booking.pier' : 'Booking.airport',
-          },
-        });
-      }
-    };
-
-    const swapText = () => {
-    isSwapped.value = !isSwapped.value;
-    };
-    
-    const disabledDate = (current: Dayjs): boolean => {
-       return current && current.isBefore(dayjs().add(1, 'day').startOf('day'))
-    };
-
-    const disabledDateAfterFirst = (current: Dayjs): boolean => {
-      return current && (!DateArrivalShip.value || current.isBefore(DateArrivalShip.value));
-    };
-
-    return {
-      t,
-      tab,
-      antLocale,
-      isChecked,
-      navigateToConfirmation,
-      DateArrivalShip,
-      DateShuttle,
-      TimeArrivalShip,
-      TimeShuttle,
-      phone,
-      contact,
-      counts,
-      totalPrice,
-      disabledHours,
-      disabledMinutes,
-      isSwapped,
-      swapText,
-      increment(type: 'adult' | 'child') {
-        counts.value[type]++;
-      },
-      decrement(type: 'adult' | 'child') {
-        if (counts.value[type] > 0) {
-          counts.value[type]--;
-        }
-      },
-      pricePerTicket: 30,
-      disabledDate,
-      disabledDateAfterFirst, 
-      handleDatePickerOpen,
-    };
-  },
+// 篩選訂單
+const filteredOrders = computed(() => {
+  return orders.value.filter(order => 
+    Object.values(order).some(value => 
+      String(value).includes(searchQuery.value)
+    )
+  );
 });
+
+// 設置狀態顏色
+const statusClass = (status: string) => ({
+  'text-green-600 font-bold': status === '已完成',
+  'text-red-600 font-bold': status === '未出行',
+  'text-yellow-600 font-bold': status === '处理中'
+});
+// 定義可選項目的類型
+type OptionKey = "viewOrder" | "printOrder" | "addOrder" | "deleteOrder" | "editOrder";
+
+const selectedoption = ref<OptionKey>("viewOrder");
+
+// 側邊欄導航選項
+const options: { name: OptionKey; icon: string }[] = [
+  { name: "viewOrder", icon: "material-symbols-grid-view-outline-rounded" },
+  { name: "printOrder", icon: "material-symbols-print-outline" },
+  { name: "addOrder", icon: "material-symbols-add-diamond-outline" },
+  { name: "deleteOrder", icon: "material-symbols-delete-outline" },
+  { name: "editOrder", icon: "material-symbols-edit-square-outline" }
+];
+
+// 定義標題映射
+const titles: Record<OptionKey, string> = {
+  viewOrder: "Management.viewOrder",
+  printOrder: "Management.printOrder",
+  addOrder: "Management.addOrder",
+  deleteOrder: "Management.deleteOrder",
+  editOrder: "Management.editOrder"
+};
+
+// 定義按鈕映射（部分選項沒有按鈕）
+const buttons: Partial<Record<OptionKey, { text: string; class: string }>> = {
+  printOrder: { text: "Management.print", class: "bg-blue-400" },
+  addOrder: { text: "Management.add", class: "bg-green-500" },
+  deleteOrder: { text: "Management.delete", class: "bg-red-500" },
+  editOrder: { text: "Management.modify", class: "bg-yellow-400" }
+};
+
+// 計算標題與按鈕
+const titleKey = computed(() => titles[selectedoption.value]);
+const buttonText = computed(() => buttons[selectedoption.value]?.text ?? "");
+const buttonClass = computed(() => buttons[selectedoption.value]?.class ?? "");
 </script>

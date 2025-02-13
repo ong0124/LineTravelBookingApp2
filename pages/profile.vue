@@ -65,7 +65,7 @@ import PasswordIcon from '@/assets/icons/Password.png';
 import SettingsIcon from '@/assets/icons/Settings.png';
 import ContactIcon from '@/assets/icons/Contact.png';
 import ReviewIcon from '@/assets/icons/Review.png';
-import passengerIcon from '@/assets/icons/passengerIcon.png';
+import passengerIcon from '@/assets/icons/passengericon.png';
 import orderIcon from '@/assets/icons/orderIcon.png';
 
 const localPath = useLocalePath();

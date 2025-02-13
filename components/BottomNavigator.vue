@@ -1,5 +1,4 @@
 
-
 <template>
     <footer class="border-t bg-white fixed inset-x-0 bottom-0">
         <div class="flex justify-between">
