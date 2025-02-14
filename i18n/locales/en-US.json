@@ -40,6 +40,7 @@
     "required": "Required",
     "pricePerPerson": " / person",
     "outward": "Outward",
+    "flightNumber": "Flight Number",
     "return": "Return"
   },
   

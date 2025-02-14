@@ -52,8 +52,23 @@
                   ></a-time-picker>
                 </div>
               </a-config-provider>
+              <div class="flex flex-col py-2 pl-4 ">
+                <div class="flex items-center">
+                  <div class="flex pr-4">
+                    <Icon name="lucide:tickets"  class="bg-green-300 w-6 h-6"/>
+                    <p class="text-green-300">{{ $t('Booking.flightNumber') }} </p>
+                  </div>
+                  <div class="border rounded-lg w-2/5">
+                    <input
+                    type="text"
+                    :placeholder="$t('Booking.required')"
+                    v-model="flightNumber"
+                    class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"/>
+                  </div>
+                </div>
+              </div>
 
-              <div class="flex pt-3 pl-4">
+              <div class="flex pl-4">
                 <Icon name="i-material-symbols-directions-car" class="bg-green-300 w-6 h-6"></Icon>
                 <p class="text-green-300">{{ $t('Booking.shuttleBusTime') }}</p>
               </div>
@@ -112,7 +127,7 @@
                 <p class="flex-none pr-6">{{ $t('Booking.contact') }}</p>
                 <input
                   type="text"
-                  placeholder="必填"
+                  :placeholder="$t('Booking.required')"
                   v-model="contact"
                   class="flex-1 px-2 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
               </div>
@@ -121,7 +136,7 @@
                 <p class="flex-none pr-2">{{ $t('Booking.phone') }}</p>
                 <input
                   type="text"
-                  placeholder="必填"
+                  :placeholder="$t('Booking.required')"
                   v-model="phone"
                   class="flex-1 px-2 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
               </div>
@@ -148,6 +163,7 @@
 <script lang="ts">
 import { defineComponent,ref,watch } from 'vue';
 import type { NotificationPlacement} from 'ant-design-vue';
+import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n';
 import type { Dayjs } from 'dayjs';
 import dayjs from 'dayjs';
@@ -167,7 +183,8 @@ export default defineComponent({
     const DateShuttle = ref<Dayjs>(); // 選擇的日期
     const TimeArrivalShip = ref<string>('');
     const TimeShuttle = ref<string>(''); // 選擇的時間
-    const phone = ref(''); // 聯繫電話
+    const phone = ref('');
+    const flightNumber = ref('');
     const contact = ref(''); // 聯繫人
     const counts = ref({ adult: 1, child: 1 }); // 成人和兒童票數
     const pricePerTicket = ref(30); // 單張票價
@@ -194,8 +211,6 @@ export default defineComponent({
         placement,
       });
     };
-    
-    const now = dayjs();
 
     const disabledHours = () => {
   // 只允许 8 到 17 点
@@ -220,7 +235,7 @@ export default defineComponent({
         return;
       }
       if (newTimeShuttle) {
-        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
+        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(5, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
         if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
@@ -273,6 +288,7 @@ export default defineComponent({
             TimeShuttle: TimeShuttle.value,
             phone: phone.value,
             contact: contact.value,
+            flightNumber:flightNumber.value,
             p2: isSwapped.value ? 'Booking.airport' : 'Booking.pier',
             p3: isSwapped.value ? 'Booking.pier' : 'Booking.airport',
           },
@@ -310,6 +326,7 @@ export default defineComponent({
       disabledMinutes,
       isSwapped,
       swapText,
+      flightNumber,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;
       },

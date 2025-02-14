@@ -41,6 +41,7 @@
     "required": "必填",
     "pricePerPerson": " /人",
     "outward": "去程",
+    "flightNumber": "航班編號",
     "return": "返程"
   },
 

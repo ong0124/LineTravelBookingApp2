@@ -21,6 +21,7 @@
           <p>{{ $t('bookingStatus.airport') }}</p>
         </div>
       </div>
+      <p>{{ $t('Booking.flightNumber') }} :  MF1544</p>
       <div class="flex py-2">
       <p >{{ $t('RefundPage.adultTicket') }}</p>
       <p class="mx-auto">{{ $t('RefundPage.childTicket') }}</p>

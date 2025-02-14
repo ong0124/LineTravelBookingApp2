@@ -14,26 +14,40 @@
                     {{ $t('confirmationPage.tripInfo') }}
                 </p>
                 <p class="my-2">{{ DateShuttle }} {{ TimeShuttle }}</p>
-                <div class="flex ">
-                    <p>{{ translatedp2 }}</p>
-                    <Icon name="material-symbols-arrow-right-alt" class="mx-2 w-6 h-6"></Icon>
-                    <p>{{ translatedp3 }}</p>
+                <div class="flex justify-between">
+                    <div class="flex ">
+                        <p>{{ translatedp2 }}</p>
+                        <Icon name="material-symbols-arrow-right-alt" class="mx-2 w-6 h-6"></Icon>
+                        <p>{{ translatedp3 }}</p>
+                    </div>
+                    <div>
+                        <p>{{ $t('Booking.flightNumber') }}:{{flightNumber}}</p>
+                    </div>
                 </div>
             </div>
            <DashLine/>  
-           <div v-if="tab === 'roundedway'" class="px-2">
+           <div v-if="tab === 'roundedway'">
+            <div class="px-2">
                 <p class="border-l-4 border-orange-400 pl-2">
                     {{ $t('confirmationPage.returnTripInfo') }}
                 </p>
                 <p class="my-2">{{ DateShuttleReturn }} {{ TimeShuttleReturn }}</p>
-                <div class="flex ">
-                    <p>{{ translatedp4 }}</p>
-                    <Icon name="material-symbols-arrow-right-alt" class="mx-2 w-6 h-6"></Icon>
-                    <p>{{ translatedp5 }}</p>
+                <div class="flex justify-between">
+                    <div class="flex ">
+                        <p>{{ translatedp4 }}</p>
+                        <Icon name="material-symbols-arrow-right-alt" class="mx-2 w-6 h-6"></Icon>
+                        <p>{{ translatedp5 }}</p>
+                    </div>
+                    <div>
+                        <p>{{ $t('Booking.flightNumber') }}:{{flightNumber}}</p>
+                    </div>
                 </div>
+            </div>
                 <DashLine/>   
             </div>
                 <div class="px-2">
+                    <p>{{phone}}</p>
+                    <p>{{contact}}</p>
                     <div class="flex py-2">
                         <p class="border-l-4 border-orange-400 pl-2 flex-1">
                             {{ $t('confirmationPage.OrderTotal') }}
@@ -96,6 +110,8 @@ export default defineComponent({
     const TimeShuttle = route.query.TimeShuttle || '未提供';
     const phone = route.query.phone || '未提供';
     const contact = route.query.contact || '未提供';
+    const flightNumber = route.query.flightNumber || '未提供';
+    const flightNumberReturn = route.query.flightNumber || '未提供';
     
     const p2 = route.query.p2;
     const p3 = route.query.p3;
@@ -123,6 +139,8 @@ export default defineComponent({
       TimeShuttle,
       phone,
       contact,
+      flightNumberReturn,
+      flightNumber,
       translatedp2,
       translatedp3,
       translatedp4,

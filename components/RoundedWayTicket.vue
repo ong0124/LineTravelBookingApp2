@@ -46,7 +46,22 @@
                   ></a-time-picker>
                 </div>
               </a-config-provider>
-              <div class="flex pt-3 pl-4">
+              <div class="flex flex-col py-2 pl-4 ">
+                <div class="flex items-center">
+                  <div class="flex pr-4">
+                    <Icon name="lucide:tickets"  class="bg-green-300 w-6 h-6"/>
+                    <p class="text-green-300">{{ $t('Booking.flightNumber') }} </p>
+                  </div>
+                  <div class="border rounded-lg w-2/5">
+                    <input
+                    type="text"
+                    :placeholder="$t('Booking.required')"
+                    v-model="flightNumber"
+                    class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"/>
+                  </div>
+                </div>
+              </div>
+              <div class="flex pl-4">
                 <Icon name="i-material-symbols-directions-car" class="bg-green-300 w-6 h-6"></Icon>
                 <p class="text-green-300">{{ $t('Booking.shuttleBusTime') }}</p>
               </div>
@@ -112,7 +127,22 @@
                   ></a-time-picker>
                 </div>
               </a-config-provider>
-              <div class="flex pt-3 pl-4">
+              <div class="flex flex-col py-2 pl-4 ">
+                <div class="flex items-center">
+                  <div class="flex pr-4">
+                    <Icon name="lucide:tickets"  class="bg-green-300 w-6 h-6"/>
+                    <p class="text-green-300">{{ $t('Booking.flightNumber') }} </p>
+                  </div>
+                  <div class="border rounded-lg w-2/5">
+                    <input
+                    type="text"
+                    :placeholder="$t('Booking.required')"
+                    v-model="flightNumberReturn"
+                    class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"/>
+                  </div>
+                </div>
+              </div>
+              <div class="flex pl-4">
                 <Icon name="i-material-symbols-directions-car" class="bg-green-300 w-6 h-6"></Icon>
                 <p class="text-green-300">{{ $t('Booking.shuttleBusTime') }}</p>
               </div>
@@ -173,7 +203,7 @@
                 <input
                   v-model="contact"
                   type="text"
-                  placeholder="必填"
+                  :placeholder="$t('Booking.required')"
                   class="flex-1 px-2 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
               </div>
 
@@ -182,7 +212,7 @@
                 <input
                   v-model="phone"
                   type="text"
-                  placeholder="必填"
+                  :placeholder="$t('Booking.required')"
                   class="flex-1 px-2 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
               </div>
 
@@ -241,6 +271,9 @@ export default defineComponent({
     const pricePerTicket = ref(60);
     const contact = ref("");
     const phone = ref("");
+    const flightNumber = ref("");
+    const flightNumberReturn = ref("");
+    flightNumber
     const totalPrice = computed(() => {
       return counts.value.adult * pricePerTicket.value;
     });
@@ -282,7 +315,7 @@ export default defineComponent({
         return;
       }
       if (newTimeShuttle) {
-        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
+        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(5, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
         if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
@@ -306,7 +339,7 @@ export default defineComponent({
         return;
       }
       if (newTimeShuttleReturn) {
-        const newShuttleTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(30, 'minute');
+        const newShuttleTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(5, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
         if (newShuttleTimeReturn.isAfter(dayjs(newTimeShuttleReturn, 'HH:mm').endOf('day'))) {
@@ -381,6 +414,8 @@ export default defineComponent({
             child: counts.value.child,
             phone: phone.value,
             contact: contact.value,
+            flightNumberReturn:flightNumberReturn.value,
+            flightNumber:flightNumber.value,
             totalPrice: totalPrice.value,
             DateArrivalShip: DateArrivalShip.value? DateArrivalShip.value.format("YYYY-MM-DD") : undefined,
             DateShuttle: DateShuttle.value? DateShuttle.value.format("YYYY-MM-DD") : undefined,
@@ -427,6 +462,8 @@ export default defineComponent({
       disabledDateAfter, 
       disabledDateReturn,
       handleDatePickerOpen,
+      flightNumberReturn,
+      flightNumber,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;
       },

@@ -32,6 +32,7 @@
         </div>
           <div class="grid grid-cols-2 pt-4 pl-6">
             <div class="flex-col justify-self-end">
+              <p>{{ $t('Booking.flightNumber') }} :  MF1544</p>
               <p>{{ $t('Booking.contact') }} :  XXX</p>
               <p>{{ $t('Booking.phone') }} :  183XXXXXX</p>
                 <p>
@@ -117,7 +118,7 @@
                 <p class="flex-none pr-6">{{ $t('Booking.contact') }}</p>
                 <input
                   type="text"
-                  placeholder="必填"
+                  :placeholder="$t('Booking.required')"
                   v-model="contact"
                   class="flex-1 px-4 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
               </div>
@@ -126,7 +127,7 @@
                 <p class="flex-none pr-2">{{ $t('Booking.phone') }}</p>
                 <input
                   type="text"
-                  placeholder="必填"
+                  :placeholder="$t('Booking.required')"
                   v-model="phone"
                   class="flex-1 px-4 border-b-2 border-gray-600 bg-inherit focus:outline-none text-sm min-w-0"/>
               </div>
