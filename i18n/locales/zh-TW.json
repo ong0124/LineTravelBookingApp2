@@ -215,6 +215,7 @@
   "unitPrice": "單價",
   "orderDate": "訂單日期",
   "orderContact": "訂單聯繫人",
+  "flightNumber": "航班編號",
   "orderPhoneNumber": "訂單聯繫電話",
   "searchOrder": "搜索訂單"
 },

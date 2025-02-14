@@ -63,6 +63,7 @@
                   <td class="border p-2">{{ order.ticketCode }}</td>
                   <td class="border p-2">{{ order.pickup }}</td>
                   <td class="border p-2">{{ order.dropoff }}</td>
+                  <td class="border p-2">{{ order.flightNumber }}</td>
                   <td class="border p-2">{{ order.time }}</td>
                   <td class="border p-2">
                     <span :class="statusClass(order.status)">{{ order.status }}</span>
@@ -92,8 +93,8 @@ const searchQuery = ref('')
 
 // 訂單數據
 const orders = ref([
-  { id: '20250128000207', ticketCode: '4482451', pickup: '水头码头', dropoff: '尚义机场', time: '2025/2/6 10:00:00', status: '未出行', fullTickets: 2, price: 50, date: '2025/1/28 14:49:21', contact: '张三', phone: '1234567890' },
-  { id: '20250203000148', ticketCode: '9367772', pickup: '水头码头', dropoff: '尚义机场', time: '2025/2/6 10:00:00', status: '已完成', fullTickets: 1, price: 30, date: '2025/2/3 11:17:14', contact: '李四', phone: '0987654321' }
+  { id: '20250128000207', ticketCode: '4482451', pickup: '尚義機場', dropoff: '水頭碼頭', flightNumber: 'MF8448',time: '2025/2/6 10:00:00', status: '未出行', fullTickets: 2, price: 50, date: '2025/1/28 14:49:21', contact: '张三', phone: '1234567890' },
+  { id: '20250203000148', ticketCode: '9367772', pickup: '水頭碼頭', dropoff: '尚義機場',flightNumber: 'MF1688', time: '2025/2/6 10:00:00', status: '已完成', fullTickets: 1, price: 30, date: '2025/2/3 11:17:14', contact: '李四', phone: '0987654321' }
 ]);
 
 // 使用 i18n 獲取表頭名稱
@@ -102,6 +103,7 @@ const translatedHeaders = computed(() => [
   t("Management.boardingCode"),
   t("Management.boardingPoint"),
   t("Management.dropOffPoint"),
+  t("Management.flightNumber"),
   t("Management.rideTime"),
   t("Management.status"),
   t("Management.fullTicketCount"),

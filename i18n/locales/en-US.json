@@ -214,6 +214,7 @@
   "orderDate": "Order Date",
   "orderContact": "Order Contact",
   "orderPhoneNumber": "Order Phone Number",
+  "flightNumber": "Flight Number",
   "searchOrder": "Search Order"
 },
   "okButton":"OK",

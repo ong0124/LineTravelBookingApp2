@@ -214,6 +214,7 @@
   "unitPrice": "单价",
   "orderDate": "订单日期",
   "orderContact": "订单联系人",
+  "flightNumber": "航班编号",
   "orderPhoneNumber": "订单联系电话",
   "searchOrder": "搜索订单"
 },
