@@ -41,7 +41,8 @@
     "required": "必填",
     "pricePerPerson": " /人",
     "outward": "去程",
-    "flightNumber": "航班編號",
+    "flightNumber": "班次編號",
+    "ferryTime": "船班時間",
     "return": "返程"
   },
 
@@ -215,7 +216,8 @@
   "unitPrice": "單價",
   "orderDate": "訂單日期",
   "orderContact": "訂單聯繫人",
-  "flightNumber": "航班編號",
+  "flightNumber": "班次編號",
+  "ferryTime": "船班時間",
   "orderPhoneNumber": "訂單聯繫電話",
   "searchOrder": "搜索訂單"
 },

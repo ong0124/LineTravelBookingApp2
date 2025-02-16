@@ -73,17 +73,58 @@
       <a-config-provider :locale="antLocale">
         <div class="flex space-x-4">
           <a-space direction="vertical" :size="12">
-            <a-date-picker />
+            <a-date-picker 
+            :show-today="false"
+            :disabled-date="disabledDate"
+            />
           </a-space>
           <a-time-picker
-            :minute-step="30"
+            :minute-step="isSwapped ? 5 : 30"
             value-format="HH:mm"
             format="HH:mm"
+            :disabled-hours="disabledHours"
+            :disabled-minutes="disabledMinutes"
+            :hide-disabled-options="true" 
+            :show-now="false"       
           ></a-time-picker>
         </div>
       </a-config-provider>
-
-
+              <div class="flex flex-col py-2 ">
+                <div class="flex items-center  ">
+                  <div class="flex pr-4 ">
+                    <Icon name="lucide:tickets" class="bg-yellow-600 w-5 h-5" />
+                    <p class="text-yellow-600 ">
+                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }}
+                    </p>
+                  </div>
+                  <div>
+                    <template v-if="isSwapped">
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          v-model:value="ferryTime"
+                          :minute-step="30"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :disabled-hours="disabledHours"
+                          :disabled-minutes="disabledMinutes"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                        ></a-time-picker>
+                      </a-config-provider>
+                    </template>
+                    <template v-else>
+                      <div class="border rounded-lg">
+                        <input
+                          type="text"
+                          :placeholder="$t('Booking.required')"
+                          v-model="flightNumber"
+                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                        />
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
       <div class="font-bold pt-2 text-yellow-600">
         <p>{{ $t('ReschedulePage.passengerCount') }}</p>
       </div>
@@ -154,6 +195,11 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import 'dayjs/locale/zh-tw';
+import 'dayjs/locale/en';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import zhTW from 'ant-design-vue/es/locale/zh_TW';
 import enUS from 'ant-design-vue/es/locale/en_US';
@@ -174,7 +220,8 @@ export default defineComponent({
     const swapText = () => {
       isSwapped.value = !isSwapped.value;
     };
-
+    const flightNumber = ref('');
+    const ferryTime = ref<string>('');
     const antLocales = {
       'zh-CN': zhCN,
       'zh-TW': zhTW,
@@ -182,6 +229,25 @@ export default defineComponent({
     };
 
     const antLocale = computed(() => antLocales[locale.value] || zhTW);
+    const disabledDate = (current: Dayjs): boolean => {
+       return current && current.isBefore(dayjs().add(1, 'day').startOf('day'))
+    };
+
+    const disabledHours = () => {
+  // 只允许 8 到 17 点
+     return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < 8 || hour > 18);
+    };
+
+    const disabledMinutes = (selectedHour: number | null) => {
+    if (selectedHour === 8) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < 30); // 8:30 之前禁用
+    }
+    if (selectedHour === 18) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute >= 1); // 17:30 之后禁用
+    }
+    return [];
+    };
+
 
     return {
       isSwapped,
@@ -191,6 +257,11 @@ export default defineComponent({
       totalPrice,
       phone,
       contact,
+      disabledDate,
+      disabledHours,
+      disabledMinutes,
+      flightNumber,
+      ferryTime,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;
       },

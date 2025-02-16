@@ -40,7 +40,7 @@
     "required": "必填",
     "pricePerPerson": " / 人",
     "outward": "去程",
-    "flightNumber": "航班编号",
+    "flightNumber": "班次编号",
     "return": "返程"
   },
 
@@ -214,7 +214,8 @@
   "unitPrice": "单价",
   "orderDate": "订单日期",
   "orderContact": "订单联系人",
-  "flightNumber": "航班编号",
+  "flightNumber": "班次编号",
+  "ferryTime": "船班时间",
   "orderPhoneNumber": "订单联系电话",
   "searchOrder": "搜索订单"
 },

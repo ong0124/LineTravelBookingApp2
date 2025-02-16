@@ -38,26 +38,48 @@
                     value-format="HH:mm"
                     :disabled-hours="disabledHours"
                     :disabled-minutes="disabledMinutes"
-                    :minute-step="30"
+                    :minute-step="isSwapped ? 5 : 30"
                     :hour-step="1"
                     :hide-disabled-options="true" 
                     :show-now="false"
                     format="HH:mm"
+                    :disabled="!DateArrivalShip" 
                   ></a-time-picker>
                 </div>
               </a-config-provider>
-              <div class="flex flex-col py-2 pl-4 ">
+              <div class="flex flex-col py-2 pl-4">
                 <div class="flex items-center">
                   <div class="flex pr-4">
-                    <Icon name="lucide:tickets"  class="bg-green-300 w-6 h-6"/>
-                    <p class="text-green-300">{{ $t('Booking.flightNumber') }} </p>
+                    <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
+                    <p class="text-green-300">
+                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }}
+                    </p>
                   </div>
-                  <div class="border rounded-lg w-2/5">
-                    <input
-                    type="text"
-                    :placeholder="$t('Booking.required')"
-                    v-model="flightNumber"
-                    class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"/>
+                  <div>
+                    <template v-if="isSwapped">
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          v-model:value="ferryTime"
+                          :minute-step="30"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :disabled-hours="disabledHours"
+                          :disabled-minutes="disabledMinutes"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                        ></a-time-picker>
+                      </a-config-provider>
+                    </template>
+                    <template v-else>
+                      <div class="border rounded-lg">
+                        <input
+                          type="text"
+                          :placeholder="$t('Booking.required')"
+                          v-model="flightNumber"
+                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                        />
+                      </div>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -119,26 +141,48 @@
                     value-format="HH:mm"
                     :disabled-hours="disabledHours"
                     :disabled-minutes="disabledMinutes"
-                    :minute-step="30"
+                    :minute-step="isSwapped ? 30 : 5"
                     :hour-step="1"
                     :hide-disabled-options="true" 
                     :show-now="false"
                     format="HH:mm"
+                    :disabled="!DateArrivalShipReturn" 
                   ></a-time-picker>
                 </div>
               </a-config-provider>
-              <div class="flex flex-col py-2 pl-4 ">
+              <div class="flex flex-col py-2 pl-4">
                 <div class="flex items-center">
                   <div class="flex pr-4">
-                    <Icon name="lucide:tickets"  class="bg-green-300 w-6 h-6"/>
-                    <p class="text-green-300">{{ $t('Booking.flightNumber') }} </p>
+                    <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
+                    <p class="text-green-300">
+                      {{ isSwapped ? $t('Booking.flightNumber') : $t('Booking.ferryTime') }}
+                    </p>
                   </div>
-                  <div class="border rounded-lg w-2/5">
-                    <input
-                    type="text"
-                    :placeholder="$t('Booking.required')"
-                    v-model="flightNumberReturn"
-                    class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"/>
+                  <div>
+                    <template v-if="isSwapped">
+                      <div class="border rounded-lg">
+                        <input
+                          type="text"
+                          :placeholder="$t('Booking.required')"
+                          v-model="flightNumber"
+                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                        />
+                      </div>
+                    </template>
+                    <template v-else>
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          v-model:value="ferryTime"
+                          :minute-step="30"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :disabled-hours="disabledHours"
+                          :disabled-minutes="disabledMinutes"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                        ></a-time-picker>
+                      </a-config-provider>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -261,6 +305,7 @@ export default defineComponent({
     const DateShuttleReturn = ref<Dayjs>();
     const TimeArrivalShip = ref<string>('');
     const TimeShuttle = ref<string>('');
+    const ferryTime = ref<string>('');
     const TimeArrivalShipReturn = ref<string>('');
     const TimeShuttleReturn = ref<string>('');
     const isChecked = ref(false); // 定義復選框狀態
@@ -272,8 +317,6 @@ export default defineComponent({
     const contact = ref("");
     const phone = ref("");
     const flightNumber = ref("");
-    const flightNumberReturn = ref("");
-    flightNumber
     const totalPrice = computed(() => {
       return counts.value.adult * pricePerTicket.value;
     });
@@ -307,15 +350,16 @@ export default defineComponent({
     message.info(t('alertMessage2'));
     }
     };
+    
     watch(TimeArrivalShip, (newTimeShuttle) => {
-      if (!DateArrivalShip.value) {
-    // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
-        TimeArrivalShip.value = '';
-        alert('請先選擇到達日期');
-        return;
-      }
+    //   if (!DateArrivalShip.value) {
+    // // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
+    //     TimeArrivalShip.value = '';
+    //     alert('請先選擇到達日期');
+    //     return;
+    //   }
       if (newTimeShuttle) {
-        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(5, 'minute');
+        const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
         if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
@@ -332,14 +376,14 @@ export default defineComponent({
     });
 
     watch(TimeArrivalShipReturn, (newTimeShuttleReturn) => {
-      if (!DateArrivalShipReturn.value) {
-    // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
-        TimeArrivalShipReturn.value = '';
-        alert('請先選擇到達日期');
-        return;
-      }
+    //   if (!DateArrivalShipReturn.value) {
+    // // 如果 DateArrivalShip 沒有選擇，清空 TimeArrivalShip 並提示
+    //     TimeArrivalShipReturn.value = '';
+    //     alert('請先選擇到達日期');
+    //     return;
+    //   }
       if (newTimeShuttleReturn) {
-        const newShuttleTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(5, 'minute');
+        const newShuttleTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(30, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
         if (newShuttleTimeReturn.isAfter(dayjs(newTimeShuttleReturn, 'HH:mm').endOf('day'))) {
@@ -414,7 +458,8 @@ export default defineComponent({
             child: counts.value.child,
             phone: phone.value,
             contact: contact.value,
-            flightNumberReturn:flightNumberReturn.value,
+            ferryTime: ferryTime.value,
+            isSwapped: String(isSwapped.value),
             flightNumber:flightNumber.value,
             totalPrice: totalPrice.value,
             DateArrivalShip: DateArrivalShip.value? DateArrivalShip.value.format("YYYY-MM-DD") : undefined,
@@ -462,7 +507,7 @@ export default defineComponent({
       disabledDateAfter, 
       disabledDateReturn,
       handleDatePickerOpen,
-      flightNumberReturn,
+      ferryTime,
       flightNumber,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;

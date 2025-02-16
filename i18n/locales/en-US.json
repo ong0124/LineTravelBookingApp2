@@ -41,6 +41,7 @@
     "pricePerPerson": " / person",
     "outward": "Outward",
     "flightNumber": "Flight Number",
+    "ferryTime": "Ferry Time",
     "return": "Return"
   },
   
@@ -215,6 +216,7 @@
   "orderContact": "Order Contact",
   "orderPhoneNumber": "Order Phone Number",
   "flightNumber": "Flight Number",
+  "ferryTime": "Ferry Time",
   "searchOrder": "Search Order"
 },
   "okButton":"OK",

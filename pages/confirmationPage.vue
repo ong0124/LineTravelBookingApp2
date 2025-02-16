@@ -21,7 +21,7 @@
                         <p>{{ translatedp3 }}</p>
                     </div>
                     <div>
-                        <p>{{ $t('Booking.flightNumber') }}:{{flightNumber}}</p>
+                        <p>{{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }} : {{ isSwapped ?  ferryTime : flightNumber}}</p>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                         <p>{{ translatedp5 }}</p>
                     </div>
                     <div>
-                        <p>{{ $t('Booking.flightNumber') }}:{{flightNumber}}</p>
+                        <p>{{ isSwapped ? $t('Booking.flightNumber') : $t('Booking.ferryTime') }} : {{ isSwapped ?  flightNumber : ferryTime}}</p>
                     </div>
                 </div>
             </div>
@@ -111,12 +111,15 @@ export default defineComponent({
     const phone = route.query.phone || '未提供';
     const contact = route.query.contact || '未提供';
     const flightNumber = route.query.flightNumber || '未提供';
-    const flightNumberReturn = route.query.flightNumber || '未提供';
-    
+    const ferryTime = route.query.ferryTime || '未提供';
+    console.log('ferryTime 的值:', ferryTime);
+    console.log('flightNumber 的值:', flightNumber);
     const p2 = route.query.p2;
     const p3 = route.query.p3;
     const p4 =route.query.p4;
     const p5 =route.query.p5;
+
+    const isSwapped = computed(() => route.query.isSwapped === 'true')
     const translatedp2 = computed(() => t(p2 as string|| 'defaultKey'));
     const translatedp3 = computed(() => t(p3 as string|| 'defaultKey'));
     const translatedp4 = computed(() => t(p4 as string|| 'defaultKey'));
@@ -139,8 +142,8 @@ export default defineComponent({
       TimeShuttle,
       phone,
       contact,
-      flightNumberReturn,
       flightNumber,
+      ferryTime,
       translatedp2,
       translatedp3,
       translatedp4,
@@ -150,6 +153,7 @@ export default defineComponent({
       DateArrivalShipReturn,
       DateShuttleReturn,
       TimeShuttleReturn,
+      isSwapped,
     };
   },
 });
