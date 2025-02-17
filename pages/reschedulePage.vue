@@ -89,12 +89,12 @@
           ></a-time-picker>
         </div>
       </a-config-provider>
-              <div class="flex flex-col py-2 ">
-                <div class="flex items-center  ">
-                  <div class="flex pr-4 ">
-                    <Icon name="lucide:tickets" class="bg-yellow-600 w-5 h-5" />
-                    <p class="text-yellow-600 ">
-                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }}
+      <div class="flex flex-col py-2">
+                <div class="flex items-center">
+                  <div class="flex items-center pr-4">
+                    <Icon name="lucide:tickets" class="bg-yellow-600 w-6 h-6" />
+                    <p class="text-yellow-600">
+                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightTime') }}
                     </p>
                   </div>
                   <div>
@@ -105,26 +105,44 @@
                           :minute-step="30"
                           value-format="HH:mm"
                           format="HH:mm"
-                          :disabled-hours="disabledHours"
-                          :disabled-minutes="disabledMinutes"
                           :hide-disabled-options="true"
                           :show-now="false"
                         ></a-time-picker>
                       </a-config-provider>
                     </template>
                     <template v-else>
-                      <div class="border rounded-lg">
-                        <input
-                          type="text"
-                          :placeholder="$t('Booking.required')"
-                          v-model="flightNumber"
-                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
-                        />
-                      </div>
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          :minute-step="5"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                        ></a-time-picker>
+                      </a-config-provider>
                     </template>
                   </div>
                 </div>
               </div>
+
+              <template v-if="isSwapped">
+                  <div class="flex items-center pb-1">
+                    <div class="flex items-center pr-4">
+                      <Icon name="lucide:tickets" class="bg-yellow-600 w-6 h-6" />
+                      <p class="text-yellow-600">
+                        {{ $t('Booking.flightNumber') }}
+                      </p>
+                    </div>
+                      <div class="border rounded-lg">
+                          <input
+                            type="text"
+                            :placeholder="$t('Booking.required')"
+                            v-model="flightNumber"
+                            class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                          />
+                        </div>
+                  </div>
+                </template>
       <div class="font-bold pt-2 text-yellow-600">
         <p>{{ $t('ReschedulePage.passengerCount') }}</p>
       </div>

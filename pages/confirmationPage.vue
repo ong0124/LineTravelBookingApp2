@@ -21,7 +21,7 @@
                         <p>{{ translatedp3 }}</p>
                     </div>
                     <div>
-                        <p>{{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }} : {{ isSwapped ?  ferryTime : flightNumber}}</p>
+                        <p>{{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightTime') }} : {{ isSwapped ?  ferryTime : flightTime}}</p>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                         <p>{{ translatedp5 }}</p>
                     </div>
                     <div>
-                        <p>{{ isSwapped ? $t('Booking.flightNumber') : $t('Booking.ferryTime') }} : {{ isSwapped ?  flightNumber : ferryTime}}</p>
+                        <p>{{ isSwapped ? $t('Booking.flightTime') : $t('Booking.ferryTime') }} : {{ isSwapped ?  flightTimeReturn : ferryTimeReturn}}</p>
                     </div>
                 </div>
             </div>
@@ -110,26 +110,29 @@ export default defineComponent({
     const TimeShuttle = route.query.TimeShuttle || '未提供';
     const phone = route.query.phone || '未提供';
     const contact = route.query.contact || '未提供';
-    const flightNumber = route.query.flightNumber || '未提供';
-    const ferryTime = route.query.ferryTime || '未提供';
-    console.log('ferryTime 的值:', ferryTime);
-    console.log('flightNumber 的值:', flightNumber);
     const p2 = route.query.p2;
     const p3 = route.query.p3;
     const p4 =route.query.p4;
     const p5 =route.query.p5;
-
+    
     const isSwapped = computed(() => route.query.isSwapped === 'true')
     const translatedp2 = computed(() => t(p2 as string|| 'defaultKey'));
     const translatedp3 = computed(() => t(p3 as string|| 'defaultKey'));
     const translatedp4 = computed(() => t(p4 as string|| 'defaultKey'));
     const translatedp5 = computed(() => t(p5 as string|| 'defaultKey'));
-
+    
     const DateArrivalShipReturn = route.query.DateArrivalShipReturn || '未提供';
     const DateShuttleReturn = route.query.DateShuttleReturn || '未提供';
     const TimeArrivalShipReturn = route.query.TimeArrivalShipReturn || '未提供';
     const TimeShuttleReturn = route.query.TimeShuttleReturn || '未提供';
     
+    const flightNumber = route.query.flightNumber || '未提供';
+    const flightTime = route.query.flightTime || '未提供';
+    const ferryTime = route.query.ferryTime || '未提供';
+    const flightTimeReturn = route.query.flightTimeReturn || '未提供';
+    const ferryTimeReturn = route.query.ferryTimeReturn || '未提供';
+    
+
     return {
         t,
       tab,
@@ -142,8 +145,6 @@ export default defineComponent({
       TimeShuttle,
       phone,
       contact,
-      flightNumber,
-      ferryTime,
       translatedp2,
       translatedp3,
       translatedp4,
@@ -154,6 +155,11 @@ export default defineComponent({
       DateShuttleReturn,
       TimeShuttleReturn,
       isSwapped,
+      flightNumber,
+      ferryTime,
+      flightTime,
+      ferryTimeReturn,
+      flightTimeReturn,
     };
   },
 });

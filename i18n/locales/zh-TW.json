@@ -43,6 +43,7 @@
     "outward": "去程",
     "flightNumber": "班次編號",
     "ferryTime": "船班時間",
+    "flightTime": "班機時間",
     "return": "返程"
   },
 
@@ -222,7 +223,8 @@
   "searchOrder": "搜索訂單"
 },
     "okButton":"確認",
-     "alertMessage": "請先設定抵達碼頭的日期。",
+     "alertMessage": "抵達機場時間與銜接船班時間應大於1小時30分鐘",
+     "alertMessage3": "抵達碼頭時間與銜接飛機時間應大於1小時30分鐘",
      "alertMessage2": "只能預定明天的票，請選擇明天及以後！",
      "forReschedule": "我想改簽",
      "applyRefund": "我想申請退款",

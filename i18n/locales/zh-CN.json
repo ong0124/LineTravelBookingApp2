@@ -41,6 +41,7 @@
     "pricePerPerson": " / 人",
     "outward": "去程",
     "flightNumber": "班次编号",
+    "flightTime": "班机时间",
     "return": "返程"
   },
 
@@ -220,7 +221,8 @@
   "searchOrder": "搜索订单"
 },
   "okButton":"确认",
-  "alertMessage": "请先设置抵达码头的日期。",
+  "alertMessage": "抵达机场时间与衔接船班时间应大于1小时30分钟",
+  "alertMessage3": "抵达码头时间与衔接飞机时间应大于1小时30分钟",
   "alertMessage2": "只能预定明天的票，请选择明天及以后！",
   "forReschedule": "我想改签",
   "applyRefund": "我想申请退款",

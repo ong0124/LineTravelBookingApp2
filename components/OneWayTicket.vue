@@ -23,11 +23,31 @@
                   <p v-else class="mr-auto text-2xl">{{ $t('Booking.airport') }}</p>
                 </div>
               <div class="border-b-2 py-3"></div>
-              <div class="flex pt-3 pl-4">
-                <Icon :name="isSwapped ? 'i-material-symbols-flight-land' : 'i-majesticons-ship-line'" 
-                 class="bg-green-300 w-6 h-6"></Icon>
-                <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
-                <p v-else class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
+              <div class="flex flex-col pt-3 pl-4">
+                <template v-if="isSwapped">
+                  <div class="flex items-center pb-1">
+                    <div class="flex pr-4">
+                      <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
+                      <p class="text-green-300">
+                        {{ $t('Booking.flightNumber') }}
+                      </p>
+                    </div>
+                      <div class="border rounded-lg">
+                          <input
+                            type="text"
+                            :placeholder="$t('Booking.required')"
+                            v-model="flightNumber"
+                            class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                          />
+                        </div>
+                  </div>
+                </template>
+                <div class="flex">
+                  <Icon :name="isSwapped ? 'i-material-symbols-flight-land' : 'i-majesticons-ship-line'" 
+                   class="bg-green-300 w-6 h-6"></Icon>
+                  <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
+                  <p v-else class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
+                </div>
               </div>
               <a-config-provider :locale="antLocale">
                 <div class="flex pt-2 pl-4 space-x-4">
@@ -58,7 +78,7 @@
                   <div class="flex pr-4">
                     <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
                     <p class="text-green-300">
-                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }}
+                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightTime') }}
                     </p>
                   </div>
                   <div>
@@ -69,22 +89,30 @@
                           :minute-step="30"
                           value-format="HH:mm"
                           format="HH:mm"
-                          :disabled-hours="disabledHours"
-                          :disabled-minutes="disabledMinutes"
+                          :disabled-hours="disabledHoursF"
+                          :disabled-minutes="disabledMinutesF"
                           :hide-disabled-options="true"
                           :show-now="false"
+                          :disabled="!TimeArrivalShip" 
+                          @open-change="handleMessageOpen"
                         ></a-time-picker>
                       </a-config-provider>
                     </template>
                     <template v-else>
-                      <div class="border rounded-lg">
-                        <input
-                          type="text"
-                          :placeholder="$t('Booking.required')"
-                          v-model="flightNumber"
-                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
-                        />
-                      </div>
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          v-model:value="flightTime"
+                          :minute-step="5"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :disabled-hours="disabledHoursF"
+                          :disabled-minutes="disabledMinutesF"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                          :disabled="!TimeArrivalShip" 
+                          @open-change="handleMessageOpen2"
+                        ></a-time-picker>
+                      </a-config-provider>
                     </template>
                   </div>
                 </div>
@@ -205,6 +233,7 @@ export default defineComponent({
     const TimeShuttle = ref<string>(''); // 選擇的時間
     const phone = ref('');
     const flightNumber = ref('');
+    const flightTime = ref<string>('');
     const ferryTime = ref<string>('');
     const contact = ref(''); // 聯繫人
     const counts = ref({ adult: 1, child: 1 }); // 成人和兒童票數
@@ -247,6 +276,24 @@ export default defineComponent({
     }
     return [];
     };
+
+    const disabledHoursF = () => {
+  // 只允许 8 到 17 点
+     const ferryTimeHour = dayjs(ferryTime.value, 'HH:mm').hour();
+     return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < ferryTimeHour || hour > 18);
+    };
+
+    const disabledMinutesF = (selectedHour: number | null) => {
+    const ferryTimeMinute = dayjs(ferryTime.value, 'HH:mm').minute();
+    if (selectedHour === 8) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < 30); // 8:30 之前禁用
+    }
+    if (selectedHour === 19) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute >= 1); // 17:30 之后禁用
+    }
+    return Array.from({ length: 60 }, (_, i) => i)
+    .filter(minute => minute < ferryTimeMinute);
+    };
     
     watch(TimeArrivalShip, (newTimeShuttle) => {
     //   if (!DateArrivalShip.value) {
@@ -257,25 +304,40 @@ export default defineComponent({
     //   }
       if (newTimeShuttle) {
         const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
+        const newTime = dayjs(newTimeShuttle, 'HH:mm').add(90, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
-        if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
-          DateShuttle.value = DateArrivalShip.value?.add(1, 'day');
-        } else {
-          DateShuttle.value = DateArrivalShip.value;
-        }
-
+        // if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
+        //   DateShuttle.value = DateArrivalShip.value?.add(1, 'day');
+        // } else {
+        //   DateShuttle.value = DateArrivalShip.value;
+        // }
+        flightTime.value = newTime.format('HH:mm');
+        ferryTime.value = newTime.format('HH:mm');
         TimeShuttle.value = newShuttleTime.format('HH:mm');
       } else {
         // 如果第一個時間清空，第二個時間框也重置
         TimeShuttle.value = '';
+        ferryTime.value = '';
+        flightTime.value = '';
       }
     });
 
     const handleDatePickerOpen = (open : boolean) => {
-    if (open) {
-    message.info(t('alertMessage2'));
-    }
+      if (open) {
+      message.info(t('alertMessage2'));
+      }
+    };
+
+    const handleMessageOpen2 = (open : boolean) => {
+      if (open) {
+      message.info(t('alertMessage3'));
+      }
+    };
+    const handleMessageOpen = (open : boolean) => {
+      if (open) {
+      message.info(t('alertMessage'));
+      }
     };
     watch(DateArrivalShip, (newValue: Dayjs | undefined) => {
       if (newValue) {
@@ -291,7 +353,6 @@ export default defineComponent({
 
     // 點擊確認按鈕的邏輯
     const navigateToConfirmation = () => {
-      
       if (!isChecked.value) {
         openNotification('bottom'); // 如果未勾選，彈出通知
       } else {
@@ -310,8 +371,9 @@ export default defineComponent({
             TimeShuttle: TimeShuttle.value,
             phone: phone.value,
             contact: contact.value,
-            flightNumber:flightNumber.value,
+            flightTime:flightTime.value,
             ferryTime:ferryTime.value,
+            flightNumber:flightNumber.value,
             p2: isSwapped.value ? 'Booking.airport' : 'Booking.pier',
             p3: isSwapped.value ? 'Booking.pier' : 'Booking.airport',
           },
@@ -347,10 +409,13 @@ export default defineComponent({
       totalPrice,
       disabledHours,
       disabledMinutes,
+      disabledHoursF,
+      disabledMinutesF,
       isSwapped,
       swapText,
-      flightNumber,
+      flightTime,
       ferryTime,
+      flightNumber,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;
       },
@@ -362,7 +427,9 @@ export default defineComponent({
       pricePerTicket: 30,
       disabledDate,
       disabledDateAfterFirst, 
-      handleDatePickerOpen
+      handleDatePickerOpen,
+      handleMessageOpen,
+      handleMessageOpen2
     };
   },
 });

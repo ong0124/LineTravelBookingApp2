@@ -18,10 +18,31 @@
                 <p class="mr-auto text-2xl">{{ isSwapped ? returnTrip.p3 : onwardTrip.p3 }}</p>
               </div>
               <div class="border-b-2 py-3"></div>
-              <div class="flex pt-3 pl-4">
-                <Icon :name="isSwapped ? 'i-material-symbols-flight-land' : 'i-majesticons-ship-line'" class="bg-green-300 w-6 h-6"></Icon>
-                <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
-                <p v-else class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
+              <div class="flex flex-col pt-3 pl-4">
+                <template v-if="isSwapped">
+                  <div class="flex items-center pb-1">
+                    <div class="flex pr-4">
+                      <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
+                      <p class="text-green-300">
+                        {{ $t('Booking.flightNumber') }}
+                      </p>
+                    </div>
+                      <div class="border rounded-lg">
+                          <input
+                            type="text"
+                            :placeholder="$t('Booking.required')"
+                            v-model="flightNumber"
+                            class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                          />
+                        </div>
+                  </div>
+                </template>
+                <div class="flex">
+                  <Icon :name="isSwapped ? 'i-material-symbols-flight-land' : 'i-majesticons-ship-line'" 
+                   class="bg-green-300 w-6 h-6"></Icon>
+                  <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
+                  <p v-else class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
+                </div>
               </div>
               <a-config-provider :locale="antLocale">
                 <div class="flex pt-2 pl-4 space-x-4">
@@ -52,7 +73,7 @@
                   <div class="flex pr-4">
                     <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
                     <p class="text-green-300">
-                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightNumber') }}
+                      {{ isSwapped ? $t('Booking.ferryTime') : $t('Booking.flightTime') }}
                     </p>
                   </div>
                   <div>
@@ -63,22 +84,30 @@
                           :minute-step="30"
                           value-format="HH:mm"
                           format="HH:mm"
-                          :disabled-hours="disabledHours"
-                          :disabled-minutes="disabledMinutes"
+                          :disabled-hours="disabledHoursF"
+                          :disabled-minutes="disabledMinutesF"
                           :hide-disabled-options="true"
                           :show-now="false"
+                          :disabled="!TimeArrivalShip" 
+                          @open-change="handleMessageOpen"
                         ></a-time-picker>
                       </a-config-provider>
                     </template>
                     <template v-else>
-                      <div class="border rounded-lg">
-                        <input
-                          type="text"
-                          :placeholder="$t('Booking.required')"
-                          v-model="flightNumber"
-                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
-                        />
-                      </div>
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          v-model:value="flightTime"
+                          :minute-step="5"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :disabled-hours="disabledHoursF"
+                          :disabled-minutes="disabledMinutesF"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                          :disabled="!TimeArrivalShip" 
+                          @open-change="handleMessageOpen2"
+                        ></a-time-picker>
+                      </a-config-provider>
                     </template>
                   </div>
                 </div>
@@ -123,10 +152,30 @@
                 <p class="mr-auto text-2xl"> {{ isSwapped ? onwardTrip.p3 : returnTrip.p3 }}</p>
               </div>
               <div class="border-b-2 py-3"></div>
-              <div class="flex pt-3 pl-4">
-                <Icon :name="isSwapped ? 'i-majesticons-ship-line':'i-material-symbols-flight-land'" class="bg-green-300 w-6 h-6"></Icon>
-                <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
-                <p v-else class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
+              <div class="flex flex-col pt-3 pl-4">
+                <template v-if="!isSwapped">
+                  <div class="flex items-center pb-1">
+                    <div class="flex pr-4">
+                      <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
+                      <p class="text-green-300">
+                        {{ $t('Booking.flightNumber') }}
+                      </p>
+                    </div>
+                      <div class="border rounded-lg">
+                          <input
+                            type="text"
+                            :placeholder="$t('Booking.required')"
+                            v-model="flightNumber"
+                            class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
+                          />
+                        </div>
+                  </div>
+                </template>
+                <div class="flex">
+                  <Icon :name="isSwapped ? 'i-majesticons-ship-line':'i-material-symbols-flight-land'" class="bg-green-300 w-6 h-6"></Icon>
+                  <p v-if="isSwapped" class="text-green-300">{{ $t('Booking.arrivalPortTime') }}</p>
+                  <p v-else class="text-green-300">{{ $t('Booking.arrivalAtAirportTime') }}</p>
+                </div> 
               </div>
               <a-config-provider :locale="antLocale">
                 <div class="flex pt-2 pl-4 space-x-4">
@@ -155,31 +204,39 @@
                   <div class="flex pr-4">
                     <Icon name="lucide:tickets" class="bg-green-300 w-6 h-6" />
                     <p class="text-green-300">
-                      {{ isSwapped ? $t('Booking.flightNumber') : $t('Booking.ferryTime') }}
+                      {{ isSwapped ? $t('Booking.flightTime') : $t('Booking.ferryTime') }}
                     </p>
                   </div>
                   <div>
                     <template v-if="isSwapped">
-                      <div class="border rounded-lg">
-                        <input
-                          type="text"
-                          :placeholder="$t('Booking.required')"
-                          v-model="flightNumber"
-                          class="flex-1 px-2 py-1 w-full bg-white rounded-lg focus:outline-none text-sm"
-                        />
-                      </div>
+                      <a-config-provider :locale="antLocale">
+                        <a-time-picker
+                          v-model:value="flightTimeReturn"
+                          :minute-step="5"
+                          value-format="HH:mm"
+                          format="HH:mm"
+                          :disabled-hours="disabledHoursF"
+                          :disabled-minutes="disabledMinutesF"
+                          :hide-disabled-options="true"
+                          :show-now="false"
+                          :disabled="!TimeArrivalShip" 
+                          @open-change="handleMessageOpen2"
+                        ></a-time-picker>
+                      </a-config-provider>
                     </template>
                     <template v-else>
                       <a-config-provider :locale="antLocale">
                         <a-time-picker
-                          v-model:value="ferryTime"
+                          v-model:value="ferryTimeReturn"
                           :minute-step="30"
                           value-format="HH:mm"
                           format="HH:mm"
-                          :disabled-hours="disabledHours"
-                          :disabled-minutes="disabledMinutes"
+                          :disabled-hours="disabledHoursF"
+                          :disabled-minutes="disabledMinutesF"
                           :hide-disabled-options="true"
                           :show-now="false"
+                          :disabled="!TimeArrivalShipReturn" 
+                          @open-change="handleMessageOpen"
                         ></a-time-picker>
                       </a-config-provider>
                     </template>
@@ -305,7 +362,11 @@ export default defineComponent({
     const DateShuttleReturn = ref<Dayjs>();
     const TimeArrivalShip = ref<string>('');
     const TimeShuttle = ref<string>('');
+    const flightNumber = ref('');
+    const flightTime = ref<string>('');
     const ferryTime = ref<string>('');
+    const flightTimeReturn = ref<string>('');
+    const ferryTimeReturn = ref<string>('');
     const TimeArrivalShipReturn = ref<string>('');
     const TimeShuttleReturn = ref<string>('');
     const isChecked = ref(false); // 定義復選框狀態
@@ -316,7 +377,6 @@ export default defineComponent({
     const pricePerTicket = ref(60);
     const contact = ref("");
     const phone = ref("");
-    const flightNumber = ref("");
     const totalPrice = computed(() => {
       return counts.value.adult * pricePerTicket.value;
     });
@@ -344,11 +404,38 @@ export default defineComponent({
     }
     return [];
     };
+    const disabledHoursF = () => {
+  // 只允许 8 到 17 点
+     const ferryTimeHour = dayjs(ferryTime.value, 'HH:mm').hour();
+     return Array.from({ length: 24 }, (_, i) => i).filter(hour => hour < ferryTimeHour || hour > 18);
+    };
+
+    const disabledMinutesF = (selectedHour: number | null) => {
+    const ferryTimeMinute = dayjs(ferryTime.value, 'HH:mm').minute();
+    if (selectedHour === 8) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute < 30); // 8:30 之前禁用
+    }
+    if (selectedHour === 19) {
+        return Array.from({ length: 60 }, (_, i) => i).filter(minute => minute >= 1); // 17:30 之后禁用
+    }
+    return Array.from({ length: 60 }, (_, i) => i)
+    .filter(minute => minute < ferryTimeMinute);
+    };
     
+    const handleMessageOpen = (open : boolean) => {
+      if (open) {
+      message.info(t('alertMessage'));
+      }
+    };
     const handleDatePickerOpen = (open : boolean) => {
     if (open) {
     message.info(t('alertMessage2'));
     }
+    };
+    const handleMessageOpen2 = (open : boolean) => {
+      if (open) {
+      message.info(t('alertMessage3'));
+      }
     };
     
     watch(TimeArrivalShip, (newTimeShuttle) => {
@@ -360,18 +447,23 @@ export default defineComponent({
     //   }
       if (newTimeShuttle) {
         const newShuttleTime = dayjs(newTimeShuttle, 'HH:mm').add(30, 'minute');
+        const newTime = dayjs(newTimeShuttle, 'HH:mm').add(90, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
-        if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
-          DateShuttle.value = DateArrivalShip.value?.add(1, 'day');
-        } else {
-          DateShuttle.value = DateArrivalShip.value;
-        }
+        // if (newShuttleTime.isAfter(dayjs(newTimeShuttle, 'HH:mm').endOf('day'))) {
+        //   DateShuttle.value = DateArrivalShip.value?.add(1, 'day');
+        // } else {
+        //   DateShuttle.value = DateArrivalShip.value;
+        // }
 
+        flightTime.value = newTime.format('HH:mm');
+        ferryTime.value = newTime.format('HH:mm');
         TimeShuttle.value = newShuttleTime.format('HH:mm');
       } else {
         // 如果第一個時間清空，第二個時間框也重置
         TimeShuttle.value = '';
+        ferryTime.value = '';
+        flightTime.value = '';
       }
     });
 
@@ -384,18 +476,23 @@ export default defineComponent({
     //   }
       if (newTimeShuttleReturn) {
         const newShuttleTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(30, 'minute');
+        const newTimeReturn = dayjs(newTimeShuttleReturn, 'HH:mm').add(90, 'minute');
 
         // 如果時間超過午夜，DateShuttle加一天
-        if (newShuttleTimeReturn.isAfter(dayjs(newTimeShuttleReturn, 'HH:mm').endOf('day'))) {
-          DateShuttleReturn.value = DateArrivalShipReturn.value?.add(1, 'day');
-        } else {
-          DateShuttle.value = DateArrivalShip.value;
-        }
+        // if (newShuttleTimeReturn.isAfter(dayjs(newTimeShuttleReturn, 'HH:mm').endOf('day'))) {
+        //   DateShuttleReturn.value = DateArrivalShipReturn.value?.add(1, 'day');
+        // } else {
+        //   DateShuttle.value = DateArrivalShip.value;
+        // }
 
+        ferryTimeReturn.value = newTimeReturn.format('HH:mm');
+        flightTimeReturn.value = newTimeReturn.format('HH:mm');
         TimeShuttleReturn.value = newShuttleTimeReturn.format('HH:mm');
       } else {
         // 如果第一個時間清空，第二個時間框也重置
         TimeShuttleReturn.value = '';
+        ferryTimeReturn.value = '';
+        flightTimeReturn.value = '';
       }
     });
 
@@ -458,9 +555,12 @@ export default defineComponent({
             child: counts.value.child,
             phone: phone.value,
             contact: contact.value,
-            ferryTime: ferryTime.value,
             isSwapped: String(isSwapped.value),
+            ferryTime: ferryTime.value,
+            ferryTimeReturn: ferryTimeReturn.value,
             flightNumber:flightNumber.value,
+            flightTime:flightTime.value,
+            flightTimeReturn:flightTimeReturn.value,
             totalPrice: totalPrice.value,
             DateArrivalShip: DateArrivalShip.value? DateArrivalShip.value.format("YYYY-MM-DD") : undefined,
             DateShuttle: DateShuttle.value? DateShuttle.value.format("YYYY-MM-DD") : undefined,
@@ -508,7 +608,14 @@ export default defineComponent({
       disabledDateReturn,
       handleDatePickerOpen,
       ferryTime,
+      flightTime,
+      flightTimeReturn,
+      ferryTimeReturn,
       flightNumber,
+      disabledHoursF,
+      disabledMinutesF,
+      handleMessageOpen,
+      handleMessageOpen2,
       increment(type: 'adult' | 'child') {
         counts.value[type]++;
       },

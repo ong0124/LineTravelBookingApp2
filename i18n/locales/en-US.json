@@ -41,6 +41,7 @@
     "pricePerPerson": " / person",
     "outward": "Outward",
     "flightNumber": "Flight Number",
+    "flightTime": "Flight Time",
     "ferryTime": "Ferry Time",
     "return": "Return"
   },
@@ -220,7 +221,8 @@
   "searchOrder": "Search Order"
 },
   "okButton":"OK",
-  "alertMessage": "Please set the arrival date at the dock first.",
+  "alertMessage": "Arrival airport time and connecting ferry time should be more than 1 hour and 30 minutes",
+  "alertMessage3": "Arrival port time and connecting flight time should be more than 1 hour and 30 minutes",
   "alertMessage2": "Only tickets for tomorrow can be booked, please select tomorrow or later!",
   "forReschedule": "I want to Reschedule",
   "applyRefund": "Apply for refund",
