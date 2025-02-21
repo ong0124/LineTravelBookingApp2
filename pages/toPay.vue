@@ -34,7 +34,7 @@
                 <p>{{ $t('bookingStatus.airport') }}</p>
             </div>
             <p class="text-red-500">
-                &yen; &nbsp;30.00
+              NT$ &nbsp;150.00
             </p>
             </div>
         </div>

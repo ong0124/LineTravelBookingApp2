@@ -84,7 +84,7 @@
               <p>{{ $t('bookingStatus.airport') }}</p>
             </div>
             <p class="text-orange-400">
-              {{ $t('bookingStatus.refundedApproving') }} &yen; &nbsp;30.00
+              {{ $t('bookingStatus.refundedApproving') }} NT$ : &nbsp;30.00
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@
             <p>{{ $t('bookingStatus.airport') }}</p>
           </div>
           <p class="text-green-500">
-            {{ $t('bookingStatus.refundedtoUser') }} &yen; &nbsp;30.00
+            {{ $t('bookingStatus.refundedtoUser') }} NT$ : &nbsp;30.00
           </p>
         </div>
       </div>

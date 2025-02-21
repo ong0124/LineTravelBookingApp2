@@ -25,7 +25,7 @@
       <div class="flex py-2">
       <p >{{ $t('RefundPage.adultTicket') }}</p>
       <p class="mx-auto">{{ $t('RefundPage.childTicket') }}</p>
-      <p class="mx-auto">{{ $t('RefundPage.paid') }} : &yen; {{ $t('confirmationPage.amount') }}</p>
+      <p class="mx-auto">{{ $t('RefundPage.paid') }} : NT$  {{ $t('confirmationPage.amount') }}</p>
       </div>
       <div class="flex">
         <p>{{ $t('Booking.contact') }} ：</p>

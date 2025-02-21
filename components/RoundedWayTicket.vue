@@ -295,7 +295,7 @@
 
               <div class="flex pl-6 pt-3 justify-evenly content-center">
                 <p class="flex-1">{{ $t('Booking.ticketPrice') }}</p>
-                <p class="flex-1">&yen; {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
+                <p class="flex-1">NT$ : {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
               </div>
 
 
@@ -378,7 +378,9 @@ export default defineComponent({
     const contact = ref("");
     const phone = ref("");
     const totalPrice = computed(() => {
-      return counts.value.adult * pricePerTicket.value;
+    const adultCount = counts.value.adult;
+    // 计算前两个成人票价为 150，后续成人票价为 100
+    return (Math.min(adultCount, 2) * 300) + Math.max(adultCount - 2, 0) * 200;
     });
 
     const onwardTrip = ref({

@@ -194,7 +194,7 @@
         <!-- 票价 -->
         <div class="flex items-center pt-3">
           <p class="pr-28"> {{ $t('ReschedulePage.amountDue') }}</p>
-          <p class="text-red-500">&yen; {{ totalPrice }}.00</p>
+          <p class="text-red-500">NT$ {{ totalPrice }}.00</p>
         </div>
          
       </div>

@@ -168,7 +168,7 @@
               </div>
               <div class="flex pl-6 pt-3 justify-evenly content-center">
                 <p class="flex-1">{{ $t('Booking.ticketPrice') }}</p>
-                <p class="flex-1">&yen; {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
+                <p class="flex-1">NT$ : {{ totalPrice }}{{ $t('Booking.pricePerPerson') }}</p>
               </div>
 
 
@@ -236,11 +236,13 @@ export default defineComponent({
     const flightTime = ref<string>('');
     const ferryTime = ref<string>('');
     const contact = ref(''); // 聯繫人
-    const counts = ref({ adult: 1, child: 1 }); // 成人和兒童票數
-    const pricePerTicket = ref(30); // 單張票價
+    const counts = ref({ adult: 1, child: 0 }); // 成人和兒童票數
+    const pricePerTicket = ref(150); // 單張票價
     const tab = ref<string>('oneway');
     const totalPrice = computed(() => {
-      return counts.value.adult * pricePerTicket.value;
+    const adultCount = counts.value.adult;
+    // 计算前两个成人票价为 150，后续成人票价为 100
+    return (Math.min(adultCount, 2) * 150) + Math.max(adultCount - 2, 0) * 100;
     });
     const isSwapped = ref(false);
     
@@ -348,6 +350,14 @@ export default defineComponent({
       } else {
         DateShuttle.value = undefined; // 如果清空返回船只時間，也清空班車時間
         TimeArrivalShip.value = ''; // 清空時間選擇器
+      }
+    });
+    
+    watch(() => counts.value.adult, (newAdultCount) => {
+      if (newAdultCount >= 3) {
+      pricePerTicket.value = 100;  // 当 adult 为 3 时，调整票价
+      } else {
+      pricePerTicket.value = 150;  // 其他情况恢复默认票价
       }
     });
 

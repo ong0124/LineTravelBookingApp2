@@ -56,11 +56,11 @@
                         </div>
                      <div class="flex">
                      <p class="flex-1">{{ $t('confirmationPage.adultTicket') }} {{ adult }}</p>           
-                     <p>&yen; &nbsp;{{ totalPrice }}.00</p>
+                     <p>NT$ : &nbsp;{{ totalPrice }}.00</p>
                         </div>
                     <div class="flex">
                     <p class="flex-1">{{ $t('confirmationPage.infantTicket') }} {{ child }}</p>
-                    <p>&yen; &nbsp;0.00</p>
+                    <p>NT$ : &nbsp;0.00</p>
                     </div>
                 </div>
            </div>
@@ -78,7 +78,7 @@
         <div class="py-6 mx-6 flex">
             <div class="flex flex-1">
                 <p>{{ $t('confirmationPage.total') }} &nbsp;  &nbsp;</p>
-                <p class="text-red-500">&yen; &nbsp;{{ totalPrice }}.00</p>
+                <p class="text-red-500">NT$ : &nbsp;{{ totalPrice }}.00</p>
             </div>
             <NuxtLink :to="localPath('/payment')" class="bg-red-500 text-white rounded px-2 py-1">{{ $t('confirmationPage.submitOrder') }}</NuxtLink>
         </div>
